@@ -8,23 +8,37 @@ import android.widget.ListView;
 import androidx.appcompat.app.AppCompatActivity;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class ListViewActivity extends AppCompatActivity {
 
     private EditText mEditText;
     private Button mButton;
     private ListView mListView;
-    private ArrayList<String> mArrayList;
-    private ArrayAdapter<String> mAdapter;
+    private ArrayList<Double> mArrayList;
+    private ArrayAdapter<Double> mAdapter;
 
-    private void handleClick(){
-        String s;
+//    private void handleClick(){
+//        String s;
+//
+//        s = mEditText.getText().toString().trim();
+//        if(!s.isEmpty()){
+//            mArrayList.add(s);
+//            mAdapter.notifyDataSetChanged();
+//            mEditText.setText("");
+//        }
+//
+//    }
 
-        s = mEditText.getText().toString().trim();
-        if(!s.isEmpty()){
-            mArrayList.add(s);
-            mAdapter.notifyDataSetChanged();
-            mEditText.setText("");
+    private void handleSubmit(){
+        String s = mEditText.getText().toString().trim();
+
+        if(!s.isEmpty()) {
+            ArrayList<String> arrayList = new ArrayList<>(Arrays.asList(s.split(" ")));
+            for (String ss : arrayList) {
+                ss = ss.replace(",", ".");
+                mArrayList.add(Double.parseDouble(ss.trim()));
+            }
         }
 
     }
@@ -44,7 +58,7 @@ public class ListViewActivity extends AppCompatActivity {
         mListView = findViewById(R.id.idListView);
         mArrayList = new ArrayList<>();
 
-        mButton.setOnClickListener(v -> handleClick());
+        mButton.setOnClickListener(v -> handleSubmit()); //handleClick());
         mAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, mArrayList);
         mListView.setAdapter(mAdapter);
 
