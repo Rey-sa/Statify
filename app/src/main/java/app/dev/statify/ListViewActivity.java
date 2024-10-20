@@ -45,7 +45,9 @@ public class ListViewActivity extends AppCompatActivity {
     }
 
     private void handleItemClick(int position) {
-        mArrayList.remove(position);
+//        mArrayList.remove(position);
+        Calculations.calcAbsFreq(mArrayList.get(position));
+
         mAdapter.notifyDataSetChanged();
     }
 
