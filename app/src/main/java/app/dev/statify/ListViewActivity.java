@@ -1,8 +1,8 @@
 package app.dev.statify;
 
 import android.os.Bundle;
+import android.view.KeyEvent;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 import androidx.appcompat.app.AppCompatActivity;
@@ -13,56 +13,67 @@ import java.util.Arrays;
 public class ListViewActivity extends AppCompatActivity {
 
     private EditText mEditText;
-    private Button mButton;
+   // private Button mButton;
     private ListView mListView;
-    private ArrayList<Double> mArrayList;
-    private ArrayAdapter<Double> mAdapter;
+    private ArrayList<ArrayList<Double>> mArrayList;
+    private ArrayAdapter<ArrayList<Double>> mAdapter;
 
-//    private void handleClick(){
-//        String s;
-//
-//        s = mEditText.getText().toString().trim();
-//        if(!s.isEmpty()){
-//            mArrayList.add(s);
-//            mAdapter.notifyDataSetChanged();
-//            mEditText.setText("");
-//        }
-//
-//    }
-
-    private void handleSubmit(){
+    private void handleSubmit() {
         String s = mEditText.getText().toString().trim();
 
-        if(!s.isEmpty()) {
-            ArrayList<String> arrayList = new ArrayList<>(Arrays.asList(s.split(" ")));
-            for (String ss : arrayList) {
+        if (!s.isEmpty()) {
+            ArrayList<String> inputArrayList = new ArrayList<>(Arrays.asList(s.split(" ")));
+            ArrayList<Double> tempArrayList = new ArrayList<>();
+
+            for (String ss : inputArrayList) {
                 ss = ss.replace(",", ".");
-                mArrayList.add(Double.parseDouble(ss.trim()));
+
+                try {
+                    tempArrayList.add(Double.parseDouble(ss.trim()));
+                } catch (NumberFormatException e) {
+                    e.printStackTrace();
+                }
+
+            }
+
+            if (!inputArrayList.isEmpty()) {
+                mArrayList.add(tempArrayList);
+                mAdapter.notifyDataSetChanged();
+                mEditText.setText("");
             }
         }
-
     }
 
-    private void handleItemClick(int position){
+    private void handleItemClick(int position) {
         mArrayList.remove(position);
         mAdapter.notifyDataSetChanged();
     }
 
     @Override
-    protected void onCreate( Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_listview);
 
+        //Initialize instance Variables
         mEditText = findViewById(R.id.idEditText);
-        mButton = findViewById(R.id.idButton);
-        mListView = findViewById(R.id.idListView);
-        mArrayList = new ArrayList<>();
-
-        mButton.setOnClickListener(v -> handleSubmit()); //handleClick());
+        // mButton = findViewById(R.id.idButton);
+        mListView = findViewById(R.id.idListView);;
+        mArrayList = new ArrayList<>();;
         mAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, mArrayList);
+
+
+       //  mButton.setOnClickListener(v -> handleSubmit());
+
         mListView.setAdapter(mAdapter);
 
-        mListView.setOnItemClickListener((parent,view,position,id) -> handleItemClick(position));
-    }
+        mListView.setOnItemClickListener((parent, view, position, id) -> handleItemClick(position));
 
+        mEditText.setOnKeyListener((v, keyCode, keyEvent) -> {
+            if((keyEvent.getAction() == KeyEvent.ACTION_DOWN) && (keyCode == KeyEvent.KEYCODE_ENTER)){
+                handleSubmit();
+                return true;
+            }
+            return false;
+        });
+    }
 }

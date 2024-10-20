@@ -17,12 +17,14 @@
                 android:ems="10"
                 android:id="@+id/idEditText"
                 android:layout_weight="1"/>
-        <Button
+        <!-- <Button
                 android:text="Button"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/idButton"
-                android:layout_weight="1"/>
+                android:layout_weight="1"/>23423432
+
+                -->
 
     </LinearLayout>
 
