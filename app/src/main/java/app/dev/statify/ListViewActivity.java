@@ -1,12 +1,14 @@
 package app.dev.statify;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.KeyEvent;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ListView;
 import androidx.appcompat.app.AppCompatActivity;
+import com.google.gson.Gson;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -18,11 +20,14 @@ public class ListViewActivity extends AppCompatActivity {
     private ListView mListView;
     private ArrayList<ArrayList<Double>> mArrayList;
     private ArrayAdapter<ArrayList<Double>> mAdapter;
+    SharedPreferences mStatRowSettings;
+    private final String PREFS_NAME = "StatRowPrefs";
 
     private void handleSubmit() {
         String s = mEditText.getText().toString().trim();
 
         if (!s.isEmpty()) {
+
             ArrayList<String> inputArrayList = new ArrayList<>(Arrays.asList(s.split(" ")));
             ArrayList<Double> tempArrayList = new ArrayList<>();
 
@@ -41,6 +46,8 @@ public class ListViewActivity extends AppCompatActivity {
                 mArrayList.add(tempArrayList);
                 mAdapter.notifyDataSetChanged();
                 mEditText.setText("");
+
+                saveStatRows();
             }
         }
     }
@@ -53,6 +60,26 @@ public class ListViewActivity extends AppCompatActivity {
         mAdapter.notifyDataSetChanged();
     }
 
+    private void saveStatRows(){
+        SharedPreferences.Editor editor = mStatRowSettings.edit();
+        Gson gson = new Gson();
+        String json = gson.toJson(mArrayList);
+        editor.putString("arrayList_data", json);
+        editor.apply();
+    }
+
+    private void loadStatRows(){
+        Gson gson = new Gson();
+        String json = mStatRowSettings.getString("arrayList_data", null);
+        if(json != null) {
+            java.lang.reflect.Type type = new com.google.gson.reflect.TypeToken<ArrayList<ArrayList<Double>>>() {
+            }.getType();
+            mArrayList = gson.fromJson(json, type);
+        } else {
+            mArrayList = new ArrayList<>();
+        }
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -60,14 +87,11 @@ public class ListViewActivity extends AppCompatActivity {
 
         //Initialize instance Variables
         mEditText = findViewById(R.id.idEditText);
-        // mButton = findViewById(R.id.idButton);
-        mListView = findViewById(R.id.idListView);;
-        mArrayList = new ArrayList<>();;
+        mListView = findViewById(R.id.idListView);
+        mStatRowSettings = getSharedPreferences(PREFS_NAME, 0);
+
+        loadStatRows();
         mAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, mArrayList);
-
-
-       //  mButton.setOnClickListener(v -> handleSubmit());
-
         mListView.setAdapter(mAdapter);
 
         mListView.setOnItemClickListener((parent, view, position, id) -> handleItemClick(position));
