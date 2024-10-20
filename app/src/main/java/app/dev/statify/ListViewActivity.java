@@ -1,5 +1,6 @@
 package app.dev.statify;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.KeyEvent;
 import android.widget.ArrayAdapter;
@@ -46,8 +47,9 @@ public class ListViewActivity extends AppCompatActivity {
 
     private void handleItemClick(int position) {
 //        mArrayList.remove(position);
+        Intent intent = new Intent(ListViewActivity.this, CalculationsActivity.class);
+        startActivity(intent);
         Calculations.calcAbsFreq(mArrayList.get(position));
-
         mAdapter.notifyDataSetChanged();
     }
 
