@@ -9,7 +9,6 @@ import android.widget.EditText;
 import android.widget.ListView;
 import androidx.appcompat.app.AppCompatActivity;
 import com.google.gson.Gson;
-
 import java.util.ArrayList;
 import java.util.Arrays;
 
@@ -53,13 +52,14 @@ public class ListViewActivity extends AppCompatActivity {
     }
 
     private void handleItemClick(int position) {
-//        mArrayList.remove(position);
+
         Intent intent = new Intent(ListViewActivity.this, CalculationsActivity.class);
         startActivity(intent);
         Calculations.calcAbsFreq(mArrayList.get(position));
         mAdapter.notifyDataSetChanged();
     }
 
+    // Convert Insertion into Gson for saving statistical row
     private void saveStatRows(){
         SharedPreferences.Editor editor = mStatRowSettings.edit();
         Gson gson = new Gson();
@@ -68,6 +68,7 @@ public class ListViewActivity extends AppCompatActivity {
         editor.apply();
     }
 
+    // Reconvert Gson to ArrayList Element for loading last statistical rows
     private void loadStatRows(){
         Gson gson = new Gson();
         String json = mStatRowSettings.getString("arrayList_data", null);
