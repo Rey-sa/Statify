@@ -9,6 +9,7 @@ import android.widget.EditText;
 import android.widget.ListView;
 import androidx.appcompat.app.AppCompatActivity;
 import com.google.gson.Gson;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 
@@ -84,6 +85,9 @@ public class ListViewActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        if(getSupportActionBar() != null){
+            getSupportActionBar().hide();
+        }
         setContentView(R.layout.activity_listview);
 
         //Initialize instance Variables

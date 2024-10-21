@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">Statify</string>
+    <string name="appName">Statify</string>
 </resources>
