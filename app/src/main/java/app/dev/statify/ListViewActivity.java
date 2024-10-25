@@ -26,7 +26,8 @@ public class ListViewActivity extends AppCompatActivity {
     private ArrayAdapter<ArrayList<Double>> mAdapter;
     SharedPreferences mStatRowSettings;
     private final String PREFS_NAME = "StatRowPrefs";
-    private boolean isEditMode = false;
+    private boolean mIsEditMode = false;
+    private boolean mIsNewDataMode = false;
 
     private void handleSubmit() {
         String s = mEditText.getText().toString().trim();
@@ -111,7 +112,7 @@ public class ListViewActivity extends AppCompatActivity {
 
     private void setUpListeners() {
 
-        mBtnNewData.setOnClickListener(v -> changeTextVisibility(true));
+        mBtnNewData.setOnClickListener(v -> changeNewDataMode());
         mBtnEditData.setOnClickListener(v -> changeEditMode());
 
         mEditText.setOnKeyListener((v, keyCode, keyEvent) -> {
@@ -123,7 +124,7 @@ public class ListViewActivity extends AppCompatActivity {
         });
 
         mListView.setOnItemClickListener((parent, view, position, id) -> {
-            if (isEditMode) {
+            if (mIsEditMode) {
                 editItem(position);
             } else {
                 handleItemClick(position);
@@ -138,7 +139,7 @@ public class ListViewActivity extends AppCompatActivity {
             public View getView(int position, View convertView, ViewGroup parent) {
                 View view = super.getView(position, convertView, parent);
 
-                if (isEditMode) {
+                if (mIsEditMode) {
                     view.setBackgroundColor(Color.LTGRAY);
                 } else {
                     view.setBackgroundColor(Color.TRANSPARENT);
@@ -158,8 +159,21 @@ public class ListViewActivity extends AppCompatActivity {
     }
 
     private void changeEditMode() {
-        isEditMode = !isEditMode;
-        mBtnEditData.setText(isEditMode ? "Fertig" : "Datensatz bearbeiten");
+        mIsEditMode = !mIsEditMode;
+        mBtnEditData.setText(mIsEditMode ? "Done" : "Edit");
+        mAdapter.notifyDataSetChanged();
+    }
+
+    private void changeNewDataMode(){
+        mIsNewDataMode = !mIsNewDataMode;
+        mBtnNewData.setText(mIsNewDataMode ? "Cancel" : "New Data");
+
+        changeTextVisibility(mIsNewDataMode);
+
+        if(mIsNewDataMode){
+            mEditText.setText("");
+        }
+
         mAdapter.notifyDataSetChanged();
     }
 
