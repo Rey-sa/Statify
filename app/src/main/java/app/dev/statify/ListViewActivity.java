@@ -12,6 +12,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 import com.google.gson.Gson;
 
 import java.util.ArrayList;
@@ -118,6 +119,12 @@ public class ListViewActivity extends AppCompatActivity {
         mEditText.setOnKeyListener((v, keyCode, keyEvent) -> {
             if ((keyEvent.getAction() == KeyEvent.ACTION_DOWN) && (keyCode == KeyEvent.KEYCODE_ENTER)) {
                 handleSubmit();
+                if(mIsNewDataMode){
+                changeNewDataMode();
+                }
+                if(mIsEditMode){
+                    changeEditMode();
+                }
                 return true;
             }
             return false;
@@ -140,7 +147,7 @@ public class ListViewActivity extends AppCompatActivity {
                 View view = super.getView(position, convertView, parent);
 
                 if (mIsEditMode) {
-                    view.setBackgroundColor(Color.LTGRAY);
+                    view.setBackgroundColor(ContextCompat.getColor(getContext(), R.color.statify_light_blue));
                 } else {
                     view.setBackgroundColor(Color.TRANSPARENT);
                 }
@@ -162,6 +169,10 @@ public class ListViewActivity extends AppCompatActivity {
         mIsEditMode = !mIsEditMode;
         mBtnEditData.setText(mIsEditMode ? "Done" : "Edit");
         mAdapter.notifyDataSetChanged();
+
+        if(!mIsEditMode){
+            changeTextVisibility(false);
+        }
     }
 
     private void changeNewDataMode(){

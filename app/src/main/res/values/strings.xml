@@ -1,4 +1,4 @@
 <resources>
     <string name="app_name">Statify</string>
-    <string name="appName">Statify</string>
+    <string name="hint_statRow">Enter new statistical series</string>
 </resources>
