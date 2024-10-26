@@ -25,10 +25,25 @@ public class ListViewActivity extends AppCompatActivity {
     private ListView mListView;
     private ArrayList<ArrayList<Double>> mArrayList;
     private ArrayAdapter<ArrayList<Double>> mAdapter;
-    SharedPreferences mStatRowSettings;
+    private SharedPreferences mStatRowSettings;
     private final String PREFS_NAME = "StatRowPrefs";
     private boolean mIsEditMode = false;
     private boolean mIsNewDataMode = false;
+
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().hide();
+        }
+        setContentView(R.layout.activity_listview);
+
+        initializeViews();
+        setUpListeners();
+        loadStatRows();
+        setUpAdapters();
+    }
 
     private void handleSubmit() {
         String s = mEditText.getText().toString().trim();
@@ -89,19 +104,7 @@ public class ListViewActivity extends AppCompatActivity {
         }
     }
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        if (getSupportActionBar() != null) {
-            getSupportActionBar().hide();
-        }
-        setContentView(R.layout.activity_listview);
 
-        initializeViews();
-        setUpListeners();
-        loadStatRows();
-        setUpAdapters();
-    }
 
     private void initializeViews() {
         mEditText = findViewById(R.id.idEditText);
@@ -125,6 +128,7 @@ public class ListViewActivity extends AppCompatActivity {
                 if(mIsEditMode){
                     changeEditMode();
                 }
+
                 return true;
             }
             return false;
@@ -170,19 +174,31 @@ public class ListViewActivity extends AppCompatActivity {
         mBtnEditData.setText(mIsEditMode ? "Done" : "Edit");
         mAdapter.notifyDataSetChanged();
 
+        mBtnNewData.setEnabled(false);
+        mBtnNewData.setBackgroundColor(Color.LTGRAY);
+
         if(!mIsEditMode){
             changeTextVisibility(false);
+            mBtnNewData.setEnabled(true);
+            mBtnNewData.setBackgroundColor(ContextCompat.getColor(this, R.color.statify_turquise));
         }
     }
 
     private void changeNewDataMode(){
         mIsNewDataMode = !mIsNewDataMode;
         mBtnNewData.setText(mIsNewDataMode ? "Cancel" : "New Data");
+        mBtnEditData.setEnabled(false);
+        mBtnEditData.setBackgroundColor(Color.LTGRAY);
 
         changeTextVisibility(mIsNewDataMode);
 
         if(mIsNewDataMode){
             mEditText.setText("");
+        }
+
+        if(!mIsNewDataMode){
+            mBtnEditData.setEnabled(true);
+            mBtnEditData.setBackgroundColor(ContextCompat.getColor(this, R.color.statify_orange));
         }
 
         mAdapter.notifyDataSetChanged();
