@@ -14,7 +14,9 @@ import android.widget.ListView;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.Arrays;
 
@@ -86,25 +88,36 @@ public class ListViewActivity extends AppCompatActivity {
     private void saveStatRows() {
         SharedPreferences.Editor editor = mStatRowSettings.edit();
         Gson gson = new Gson();
-        String json = gson.toJson(mArrayList);
+
+        ArrayList<ArrayList<Double>> lastEntries = getLastEntries(mArrayList);
+
+        String json = gson.toJson(lastEntries);
         editor.putString("arrayList_data", json);
         editor.apply();
+
+        mArrayList.clear();
+        mArrayList.addAll(lastEntries);
+
+    }
+
+    private ArrayList<ArrayList<Double>> getLastEntries(ArrayList<ArrayList<Double>> orgList){
+        int size = orgList.size();
+        int index = Math.max(0, size - 5);
+        return new ArrayList<>(orgList.subList(index,size));
     }
 
     // Reconvert Gson to ArrayList Element for loading last statistical rows
     private void loadStatRows() {
-        Gson gson = new Gson();
+
         String json = mStatRowSettings.getString("arrayList_data", null);
         if (json != null) {
-            java.lang.reflect.Type type = new com.google.gson.reflect.TypeToken<ArrayList<ArrayList<Double>>>() {
-            }.getType();
+            Gson gson = new Gson();
+            Type type = new TypeToken<ArrayList<ArrayList<Double>>>() {}.getType();
             mArrayList = gson.fromJson(json, type);
         } else {
             mArrayList = new ArrayList<>();
         }
     }
-
-
 
     private void initializeViews() {
         mEditText = findViewById(R.id.idEditText);
