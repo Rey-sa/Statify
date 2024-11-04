@@ -6,15 +6,18 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Objects;
 
-public class Calculations {
 
-    public static void calcAbsFreq(ArrayList<Double> arr){
+public class Calculations {
+    
+
+
+    public static void  calcAbsFreq(ArrayList<Double> arr){
 
         boolean[] visited = new boolean[arr.size()];
         Arrays.fill(visited, false);
 
         for(int i = 0; i < arr.size(); i++) {
-            if (visited[i] == true) continue;
+            if (visited[i]) continue;
 
             int count = 1;
             for (int j = i + 1; j < arr.size(); j++) {
@@ -25,6 +28,7 @@ public class Calculations {
             }
             Log.d("COUNTER", +arr.get(i) + " occurs " + count);
         }
+        
     }
 
     public void calcRelFreq(){

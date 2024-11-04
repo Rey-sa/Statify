@@ -4,9 +4,26 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
-    <TextView
-            android:text="Ich habe die Seite gewechselt"
-            android:textSize="50sp"
+    <TableLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" android:id="@+id/textView3"/>
+            android:layout_height="wrap_content">
+
+        <TableRow
+                android:id="@+id/idTr1"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+            <TextView
+                    android:id="@+id/idTrText"
+                    android:text=""
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+            />
+
+        </TableRow>
+    </TableLayout>
+    <androidx.gridlayout.widget.GridLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+    </androidx.gridlayout.widget.GridLayout>
 </LinearLayout>
