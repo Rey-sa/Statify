@@ -2,9 +2,7 @@ package app.dev.statify;
 
 import android.os.Bundle;
 import android.view.Gravity;
-import android.widget.TableLayout;
-import android.widget.TableRow;
-import android.widget.TextView;
+import android.widget.*;
 import androidx.appcompat.app.AppCompatActivity;
 
 import java.util.ArrayList;
@@ -14,6 +12,8 @@ public class ResultActivity extends AppCompatActivity {
 
 
     private TableLayout mTableLayout;
+    private GridView mGridView;
+    private ArrayList<String> gridItems;
 
 
     @Override
@@ -28,15 +28,20 @@ public class ResultActivity extends AppCompatActivity {
 
             mTableLayout = findViewById(R.id.idTableLayout);
 
+
         ArrayList<Double> values = (ArrayList<Double>) getIntent().getSerializableExtra("values");
         ArrayList<Integer> frequencies = (ArrayList<Integer>) getIntent().getSerializableExtra("frequencies");
+
+        if(values == null || frequencies == null){
+            throw new IllegalArgumentException("Values or freq are missing");
+        }
 
         TableRow valueRow = (TableRow) mTableLayout.getChildAt(0);
         TableRow freqRow = (TableRow)  mTableLayout.getChildAt(1);
 
 
         for(int i = 0; i < values.size(); i++){
-            TableRow row = new TableRow(this);
+
             TextView valueText = new TextView(this);
 
             valueText.setText(String.valueOf(values.get(i)));
@@ -56,9 +61,20 @@ public class ResultActivity extends AppCompatActivity {
 
 
         }
+        mGridView =findViewById(R.id.idGridViewLayout);
+        double mean = Calculations.calcArithmetic(values);
+        setUpGridView(mean);
     }
 
 
+    private void setUpGridView(double mean){
+        gridItems = new ArrayList<>();
+
+        gridItems.add("Arith. Mean " + mean);
+
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, gridItems);
+        mGridView.setAdapter(adapter);
+    }
 
 
 
