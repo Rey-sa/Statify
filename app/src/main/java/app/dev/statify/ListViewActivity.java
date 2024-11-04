@@ -19,6 +19,7 @@ import com.google.gson.reflect.TypeToken;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 
 public class ListViewActivity extends AppCompatActivity {
 
@@ -78,9 +79,16 @@ public class ListViewActivity extends AppCompatActivity {
 
     private void handleItemClick(int position) {
 
-        Intent intent = new Intent(ListViewActivity.this, CalculationsActivity.class);
+        ArrayList<Double> selectedData = mArrayList.get(position);
+        HashMap<Double,Integer> frequencyMap = Calculations.calcAbsFreq(selectedData);
+
+        ArrayList<Double> values = new ArrayList<>(frequencyMap.keySet());
+        ArrayList<Integer> frequencies = new ArrayList<>(frequencyMap.values());
+
+        Intent intent = new Intent(ListViewActivity.this, ResultActivity.class);
+        intent.putExtra("values", values);
+        intent.putExtra("frequencies", frequencies);
         startActivity(intent);
-        Calculations.calcAbsFreq(mArrayList.get(position));
         mAdapter.notifyDataSetChanged();
     }
 
