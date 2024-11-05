@@ -5,7 +5,7 @@
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/statify_dark_blue">
+        android:background="@drawable/background_gradient">
 
 
     <!-- Logo -->
@@ -64,7 +64,7 @@
             android:layout_below="@id/idTableLayout"
             app:rowCount="3"
             app:columnCount="2"
-            android:layout_margin="20dp"
+            android:layout_margin="10dp"
     >
 
         <!-- Display Card 0 | 0 -->
@@ -80,6 +80,7 @@
                 app:cardCornerRadius="8dp"
                 android:elevation="8dp"
 
+
         >
             <LinearLayout
                     android:layout_width="match_parent"
@@ -87,6 +88,7 @@
                     android:orientation="vertical"
                     android:gravity="center"
                     app:layout_gravity="center_vertical|center_horizontal"
+                    android:background="@color/card_background"
 
             >
 
@@ -132,6 +134,7 @@
                         android:orientation="vertical"
                         android:gravity="center"
                         app:layout_gravity="center_vertical|center_horizontal"
+                        android:background="@color/card_background"
 
                 >
 
@@ -177,6 +180,7 @@
                     android:orientation="vertical"
                     android:gravity="center"
                     app:layout_gravity="center_vertical|center_horizontal"
+                    android:background="@color/card_background"
 
             >
 
@@ -223,6 +227,7 @@
                     android:orientation="vertical"
                     android:gravity="center"
                     app:layout_gravity="center_vertical|center_horizontal"
+                    android:background="@color/card_background"
 
             >
 
@@ -265,6 +270,7 @@
                     android:orientation="vertical"
                     android:gravity="center"
                     app:layout_gravity="center_vertical|center_horizontal"
+                    android:background="@color/card_background"
 
             >
 
@@ -306,6 +312,7 @@
                     android:orientation="vertical"
                     android:gravity="center"
                     app:layout_gravity="center_vertical|center_horizontal"
+                    android:background="@color/card_background"
 
             >
 

@@ -6,5 +6,7 @@
     <string name="arithmetic">Arithmetic</string>
     <string name="median">Median</string>
     <string name="range">Range</string>
+    <string name="new_data">New Data</string>
+    <string name="edit">Edit</string>
 
 </resources>
