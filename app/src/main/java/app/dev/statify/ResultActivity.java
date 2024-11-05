@@ -12,7 +12,7 @@ public class ResultActivity extends AppCompatActivity {
 
 
     private TableLayout mTableLayout;
-    private GridView mGridView;
+    private TextView mCard;
     private ArrayList<String> gridItems;
 
 
@@ -61,20 +61,18 @@ public class ResultActivity extends AppCompatActivity {
 
 
         }
-        mGridView =findViewById(R.id.idGridViewLayout);
+        setUpCardContent(values);
+    }
+
+
+    private void setUpCardContent(ArrayList<Double> values){
+        mCard =findViewById(R.id.idTextCard00);
+        TextView mCard2 = findViewById(R.id.idTextCard01);
         double mean = Calculations.calcArithmetic(values);
-        setUpGridView(mean);
+        mCard.setText(String.valueOf(mean));
+        mCard2.setText(String.valueOf(mean));
     }
 
-
-    private void setUpGridView(double mean){
-        gridItems = new ArrayList<>();
-
-        gridItems.add("Arith. Mean " + mean);
-
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, gridItems);
-        mGridView.setAdapter(adapter);
-    }
 
 
 

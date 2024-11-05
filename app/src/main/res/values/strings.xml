@@ -3,4 +3,9 @@
     <string name="hint_statRow">Enter new statistical series</string>
     <string name="count">Count</string>
     <string name="value">Value</string>
+    <string name="arithmetic">Arithmetic</string>
+    <string name="xquer">x̄</string>
+    <string name="sigma">σ</string>
+    <string name="mittelwert">μ</string>
+    <string name="sum">∑</string>
 </resources>
