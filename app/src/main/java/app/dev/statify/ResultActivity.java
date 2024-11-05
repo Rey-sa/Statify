@@ -2,7 +2,9 @@ package app.dev.statify;
 
 import android.os.Bundle;
 import android.view.Gravity;
-import android.widget.*;
+import android.widget.TableLayout;
+import android.widget.TableRow;
+import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 
 import java.util.ArrayList;
@@ -10,10 +12,7 @@ import java.util.ArrayList;
 
 public class ResultActivity extends AppCompatActivity {
 
-
     private TableLayout mTableLayout;
-    private TextView mCard;
-    private ArrayList<String> gridItems;
 
 
     @Override
@@ -31,9 +30,10 @@ public class ResultActivity extends AppCompatActivity {
 
         ArrayList<Double> values = (ArrayList<Double>) getIntent().getSerializableExtra("values");
         ArrayList<Integer> frequencies = (ArrayList<Integer>) getIntent().getSerializableExtra("frequencies");
+        ArrayList<Double> selectedData = (ArrayList<Double>) getIntent().getSerializableExtra("selected_data");
 
-        if(values == null || frequencies == null){
-            throw new IllegalArgumentException("Values or freq are missing");
+        if(values == null || frequencies == null || selectedData == null){
+            throw new IllegalArgumentException("Values,freq ore data are missing");
         }
 
         TableRow valueRow = (TableRow) mTableLayout.getChildAt(0);
@@ -61,17 +61,28 @@ public class ResultActivity extends AppCompatActivity {
 
 
         }
-        setUpCardContent(values);
+        setUpCardContent(selectedData);
     }
 
 
-    private void setUpCardContent(ArrayList<Double> values){
-        mCard =findViewById(R.id.idTextCard00);
-        TextView mCard2 = findViewById(R.id.idTextCard01);
-        double mean = Calculations.calcArithmetic(values);
-        mCard.setText(String.valueOf(mean));
-        mCard2.setText(String.valueOf(mean));
+    private void setUpCardContent(ArrayList<Double> selectedData){
+        TextView Card00, Card01, Card10, Card11, Card20, Card21;
+
+
+        Card00 =findViewById(R.id.idTextCard00);
+        Card01=findViewById(R.id.idTextCard01);
+        Card10 =findViewById(R.id.idTextCard10);
+        Card11 =findViewById(R.id.idTextCard11);
+        Card20 =findViewById(R.id.idTextCard20);
+        Card21 =findViewById(R.id.idTextCard21);
+
+
+        String arithmetic = Calculations.calcArithmetic(selectedData);
+        String median = Calculations.calcMedian(selectedData);
+        Card00.setText(String.valueOf(arithmetic));
+        Card01.setText(String.valueOf(median));
     }
+
 
 
 

@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.ViewGroup;
@@ -32,6 +31,8 @@ public class ListViewActivity extends AppCompatActivity {
     private final String PREFS_NAME = "StatRowPrefs";
     private boolean mIsEditMode = false;
     private boolean mIsNewDataMode = false;
+    private ArrayList<Double> selectedData;
+
 
 
     @Override
@@ -79,10 +80,8 @@ public class ListViewActivity extends AppCompatActivity {
 
     private void handleItemClick(int position) {
 
-        ArrayList<Double> selectedData = mArrayList.get(position);
+        selectedData = mArrayList.get(position);
         TreeMap<Double,Integer> frequencyMap = Calculations.calcAbsFreq(selectedData);
-        double mean = Calculations.calcArithmetic(selectedData);
-        Log.d("Test", "Ergebnis " + mean);
 
         ArrayList<Double> values = new ArrayList<>(frequencyMap.keySet());
         ArrayList<Integer> frequencies = new ArrayList<>(frequencyMap.values());
@@ -90,8 +89,10 @@ public class ListViewActivity extends AppCompatActivity {
         Intent intent = new Intent(ListViewActivity.this, ResultActivity.class);
         intent.putExtra("values", values);
         intent.putExtra("frequencies", frequencies);
+        intent.putExtra("selected_data", selectedData);
         startActivity(intent);
         mAdapter.notifyDataSetChanged();
+
     }
 
     // Convert Insertion into Gson for saving statistical row
@@ -240,4 +241,5 @@ public class ListViewActivity extends AppCompatActivity {
         mAdapter.notifyDataSetChanged();
 
     }
+
 }
