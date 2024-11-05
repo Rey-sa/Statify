@@ -5,7 +5,8 @@
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@drawable/background_gradient">
+        android:background="@drawable/background_gradient"
+        >
 
 
     <!-- Logo -->
@@ -20,7 +21,8 @@
             android:layout_marginTop="12dp"
     />
 
-    <!-- Table for Frequencies -->
+   <!-- Table for Frequencies -->
+
     <TableLayout
             android:id="@+id/idTableLayout"
             android:layout_width="wrap_content"
@@ -97,7 +99,6 @@
                         android:layout_height="wrap_content"
                         android:text="@string/arithmetic"
                         android:textSize="@dimen/card_icon_size"
-                        android:fontFamily="monospace"
                         android:gravity="center"
                         android:textColor="@color/black"
                         android:padding="@dimen/card_padding"
@@ -143,7 +144,6 @@
                             android:layout_height="wrap_content"
                             android:text="@string/median"
                             android:textSize="@dimen/card_icon_size"
-                            android:fontFamily="monospace"
                             android:gravity="center"
                             android:textColor="@color/black"
                             android:padding="@dimen/card_padding"
@@ -189,7 +189,6 @@
                         android:layout_height="wrap_content"
                         android:text="@string/range"
                         android:textSize="@dimen/card_icon_size"
-                        android:fontFamily="monospace"
                         android:gravity="center"
                         android:textColor="@color/black"
                         android:padding="@dimen/card_padding"
@@ -234,10 +233,11 @@
                 <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textSize="48sp"
-                        android:fontFamily="monospace"
+                        android:text="@string/variance"
+                        android:textSize="@dimen/card_icon_size"
                         android:gravity="center"
-                        android:padding="8dp"
+                        android:textColor="@color/black"
+                        android:padding="@dimen/card_padding"
 
                 />
                 <TextView
@@ -245,7 +245,9 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textStyle="bold"
-                        android:textAlignment="center"/>
+                        android:textSize="@dimen/card_text_size"
+                        android:textAlignment="center"
+                />
 
             </LinearLayout>
         </androidx.cardview.widget.CardView>
@@ -277,9 +279,11 @@
                 <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textSize="48sp"
-                        android:fontFamily="monospace"
+                        android:text="@string/deviation"
+                        android:textSize="@dimen/card_icon_size"
                         android:gravity="center"
+                        android:textColor="@color/black"
+                        android:padding="@dimen/card_padding"
 
                 />
                 <TextView
@@ -287,6 +291,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textStyle="bold"
+                        android:textSize="@dimen/card_text_size"
                         android:textAlignment="center"/>
 
             </LinearLayout>
@@ -320,7 +325,6 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textSize="48sp"
-                        android:fontFamily="monospace"
                         android:gravity="center"
 
                 />

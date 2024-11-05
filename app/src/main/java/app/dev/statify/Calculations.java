@@ -25,7 +25,7 @@ public class Calculations {
 
     }
 
-    public static String calcMedian(ArrayList<Double> selectedData){
+    public static double calcMedian(ArrayList<Double> selectedData){
 
         sortSelectedData(selectedData);
         int listSize = selectedData.size();
@@ -35,16 +35,16 @@ public class Calculations {
             int middle = listSize / 2;
             double value1 = selectedData.get(middle -1);
             double value2 = selectedData.get(middle);
-            return String.format(Locale.US,"%.2f",(value1 + value2) / 2.0 );
+            return (value1 + value2) / 2.0 ;
 
         } else {
-            return String.format(Locale.US,"%.2f",selectedData.get(listSize/2));
+            return selectedData.get(listSize/2);
 
         }
 
     }
 
-    public static String calcArithmetic(ArrayList<Double> selectedData){
+    public static double calcArithmetic(ArrayList<Double> selectedData){
 
         if(selectedData == null || selectedData.isEmpty()){
             throw new IllegalArgumentException("ArrayList should not be empty");
@@ -55,19 +55,41 @@ public class Calculations {
             result += help;
         }
 
+        return result/ selectedData.size();
 
-        return String.format(Locale.US,"%.2f",result/ selectedData.size());
     }
 
-    public static String calcRange(ArrayList<Double> selectedData){
+    public static double calcRange(ArrayList<Double> selectedData){
         sortSelectedData(selectedData);
-        return String.format(Locale.US,"%.2f", selectedData.get(selectedData.size()-1) - selectedData.get(0));
+        return selectedData.get(selectedData.size()-1) - selectedData.get(0);
+
+
+    }
+
+    public static double calcVariance(ArrayList<Double> selectedData){
+        double arithmetic = calcArithmetic(selectedData);
+        double listSize = selectedData.size();
+        double sum = 0;
+
+        for(int i = 0; i < listSize; i++){
+            sum += Math.pow(selectedData.get(i) - arithmetic, 2);
+        }
+
+        return  (1 / listSize) * sum;
+    }
+
+    public static double calcDeviation(ArrayList<Double> selectedData){
+            double variance = calcVariance(selectedData);
+
+            return Math.sqrt(variance);
+
     }
 
 
-    public static ArrayList<Double> sortSelectedData(ArrayList<Double> selectedData) {
+
+
+    public static void sortSelectedData(ArrayList<Double> selectedData) {
         Collections.sort(selectedData);
-        return selectedData;
     }
 
 

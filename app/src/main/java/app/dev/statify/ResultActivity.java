@@ -8,6 +8,7 @@ import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 
 import java.util.ArrayList;
+import java.util.Locale;
 
 
 public class ResultActivity extends AppCompatActivity {
@@ -77,12 +78,18 @@ public class ResultActivity extends AppCompatActivity {
         Card21 =findViewById(R.id.idTextCard21);
 
 
-        String arithmetic = Calculations.calcArithmetic(selectedData);
-        String median = Calculations.calcMedian(selectedData);
-        String range = Calculations.calcRange(selectedData);
-        Card00.setText(arithmetic);
-        Card01.setText(median);
-        Card10.setText(range);
+        double arithmetic = Calculations.calcArithmetic(selectedData);
+        double median = Calculations.calcMedian(selectedData);
+        double range = Calculations.calcRange(selectedData);
+        double variance = Calculations.calcVariance(selectedData);
+        double deviation = Calculations.calcDeviation(selectedData);
+
+
+        Card00.setText(String.format(Locale.US,"%.2f",arithmetic));
+        Card01.setText(String.format(Locale.US,"%.2f",median));
+        Card10.setText(String.format(Locale.US,"%.2f",range));
+        Card11.setText(String.format(Locale.US,"%.2f",variance));
+        Card20.setText(String.format(Locale.US,"%.2f",deviation));
     }
 
 

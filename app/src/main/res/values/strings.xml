@@ -8,5 +8,7 @@
     <string name="range">Range</string>
     <string name="new_data">New Data</string>
     <string name="edit">Edit</string>
+    <string name="deviation">Deviation</string>
+    <string name="variance">Variance</string>
 
 </resources>
