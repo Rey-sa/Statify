@@ -27,7 +27,7 @@ public class Calculations {
 
     public static String calcMedian(ArrayList<Double> selectedData){
 
-        Collections.sort(selectedData);
+        sortSelectedData(selectedData);
         int listSize = selectedData.size();
 
 
@@ -57,6 +57,17 @@ public class Calculations {
 
 
         return String.format(Locale.US,"%.2f",result/ selectedData.size());
+    }
+
+    public static String calcRange(ArrayList<Double> selectedData){
+        sortSelectedData(selectedData);
+        return String.format(Locale.US,"%.2f", selectedData.get(selectedData.size()-1) - selectedData.get(0));
+    }
+
+
+    public static ArrayList<Double> sortSelectedData(ArrayList<Double> selectedData) {
+        Collections.sort(selectedData);
+        return selectedData;
     }
 
 

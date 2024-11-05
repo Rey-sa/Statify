@@ -79,8 +79,10 @@ public class ResultActivity extends AppCompatActivity {
 
         String arithmetic = Calculations.calcArithmetic(selectedData);
         String median = Calculations.calcMedian(selectedData);
-        Card00.setText(String.valueOf(arithmetic));
-        Card01.setText(String.valueOf(median));
+        String range = Calculations.calcRange(selectedData);
+        Card00.setText(arithmetic);
+        Card01.setText(median);
+        Card10.setText(range);
     }
 
 

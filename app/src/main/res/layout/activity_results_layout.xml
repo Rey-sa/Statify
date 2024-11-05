@@ -183,10 +183,12 @@
                 <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textSize="48sp"
+                        android:text="@string/range"
+                        android:textSize="@dimen/card_icon_size"
                         android:fontFamily="monospace"
                         android:gravity="center"
-                        android:padding="8dp"
+                        android:textColor="@color/black"
+                        android:padding="@dimen/card_padding"
 
                 />
                 <TextView
@@ -194,6 +196,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textStyle="bold"
+                        android:textSize="@dimen/card_text_size"
                         android:textAlignment="center"
                 />
 
