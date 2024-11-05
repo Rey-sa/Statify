@@ -90,6 +90,7 @@ public class ResultActivity extends AppCompatActivity {
         Card10.setText(String.format(Locale.US,"%.2f",range));
         Card11.setText(String.format(Locale.US,"%.2f",variance));
         Card20.setText(String.format(Locale.US,"%.2f",deviation));
+
     }
 
 
