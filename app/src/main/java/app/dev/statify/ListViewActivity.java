@@ -1,7 +1,5 @@
 package app.dev.statify;
-
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.KeyEvent;
@@ -11,9 +9,6 @@ import android.widget.*;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 import app.dev.statify.OCL.OnClickListener;
-import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
-import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.TreeMap;
@@ -26,8 +21,7 @@ public class ListViewActivity extends AppCompatActivity {
 
     private ArrayList<ArrayList<Double>> mArrayList;
     private ArrayAdapter<ArrayList<Double>> mAdapter;
-    private SharedPreferences mStatRowSettings;
-    private final String PREFS_NAME = "StatRowPrefs";
+    private SaveLoadManager mSaveLoadManager;
     private boolean mIsEditMode = false;
     private boolean mIsNewDataMode = false;
     private ArrayList<Double> selectedData;
@@ -43,9 +37,18 @@ public class ListViewActivity extends AppCompatActivity {
         setContentView(R.layout.activity_listview);
 
         initializeViews();
+        mSaveLoadManager = new SaveLoadManager(this);
         setUpListeners();
         loadStatRows();
         setUpAdapters();
+    }
+
+    private void loadStatRows(){
+        mArrayList = mSaveLoadManager.loadStatRows();
+    }
+
+    private void saveStatRows(){
+        mSaveLoadManager.saveStatRows(mArrayList);
     }
 
     public void handleSubmit() {
@@ -72,7 +75,7 @@ public class ListViewActivity extends AppCompatActivity {
                 mAdapter.notifyDataSetChanged();
                 mEditText.setText("");
 
-                saveStatRows();
+                SaveLoadManager.saveStatRows(mArrayList);
             }
         }
     }
@@ -94,47 +97,14 @@ public class ListViewActivity extends AppCompatActivity {
 
     }
 
-    // Convert Insertion into Gson for saving statistical row
-    private void saveStatRows() {
-        SharedPreferences.Editor editor = mStatRowSettings.edit();
-        Gson gson = new Gson();
 
-        ArrayList<ArrayList<Double>> lastEntries = getLastEntries(mArrayList);
 
-        String json = gson.toJson(lastEntries);
-        editor.putString("arrayList_data", json);
-        editor.apply();
-
-        mArrayList.clear();
-        mArrayList.addAll(lastEntries);
-
-    }
-
-    private ArrayList<ArrayList<Double>> getLastEntries(ArrayList<ArrayList<Double>> orgList){
-        int size = orgList.size();
-        int index = Math.max(0, size - 5);
-        return new ArrayList<>(orgList.subList(index,size));
-    }
-
-    // Reconvert Gson to ArrayList Element for loading last statistical rows
-    private void loadStatRows() {
-
-        String json = mStatRowSettings.getString("arrayList_data", null);
-        if (json != null) {
-            Gson gson = new Gson();
-            Type type = new TypeToken<ArrayList<ArrayList<Double>>>() {}.getType();
-            mArrayList = gson.fromJson(json, type);
-        } else {
-            mArrayList = new ArrayList<>();
-        }
-    }
 
     private void initializeViews() {
         mEditText = findViewById(R.id.idEditText);
         mListView = findViewById(R.id.idListView);
         mBtnNewData = findViewById(R.id.idBtnNewData);
         mBtnEditData = findViewById(R.id.idBtnEditData);
-        mStatRowSettings = getSharedPreferences(PREFS_NAME, 0);
     }
 
     private void setUpListeners() {
