@@ -1,17 +1,14 @@
 package app.dev.statify.Activities;
 
+import android.content.Intent;
 import android.os.Bundle;
-import android.view.Gravity;
 import android.widget.TableLayout;
-import android.widget.TableRow;
 import android.widget.TextView;
-import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
 import app.dev.statify.Calculations;
 import app.dev.statify.Listener.OnClickListener;
 import app.dev.statify.R;
-
 import java.util.ArrayList;
 import java.util.Locale;
 
@@ -31,43 +28,13 @@ public class ResultActivity extends AppCompatActivity {
             setContentView(R.layout.activity_results_layout);
 
 
-            mTableLayout = findViewById(R.id.idTableLayout);
-
-
-        ArrayList<Double> values = (ArrayList<Double>) getIntent().getSerializableExtra("values");
-        ArrayList<Integer> frequencies = (ArrayList<Integer>) getIntent().getSerializableExtra("frequencies");
         ArrayList<Double> selectedData = (ArrayList<Double>) getIntent().getSerializableExtra("selected_data");
 
-        if(values == null || frequencies == null || selectedData == null){
-            throw new IllegalArgumentException("Values,freq ore data are missing");
-        }
-
-        TableRow valueRow = (TableRow) mTableLayout.getChildAt(0);
-        TableRow freqRow = (TableRow)  mTableLayout.getChildAt(1);
-
-
-        for(int i = 0; i < values.size(); i++){
-
-            TextView valueText = new TextView(this);
-
-            valueText.setText(String.valueOf(values.get(i)));
-            valueText.setPadding(8, 8, 8, 8);
-            valueText.setGravity(Gravity.CENTER);
-            valueText.setBackgroundResource(R.drawable.cell_border);
-
-            TextView frequencyText = new TextView(this);
-            frequencyText.setText(String.valueOf(frequencies.get(i)));
-            frequencyText.setPadding(8, 8, 8, 8);
-            frequencyText.setGravity(Gravity.CENTER);
-            frequencyText.setBackgroundResource(R.drawable.cell_border);
-
-
-            valueRow.addView(valueText);
-            freqRow.addView(frequencyText);
-
-
+        if(selectedData == null){
+            throw new IllegalArgumentException("Data is missing");
         }
         setUpCardContent(selectedData);
+
 
         mCard21 = findViewById(R.id.idCard21);
         OnClickListener listener = new OnClickListener(this);
@@ -104,7 +71,15 @@ public class ResultActivity extends AppCompatActivity {
 
 
     public void handleCardClick(){
-        Toast.makeText(this, "Card21 wurde geklickt", Toast.LENGTH_SHORT).show();
+
+        ArrayList<Double> values = (ArrayList<Double>) getIntent().getSerializableExtra("values");
+        ArrayList<Integer> frequencies = (ArrayList<Integer>) getIntent().getSerializableExtra("frequencies");
+
+        Intent intent = new Intent(ResultActivity.this, FrequenciesActivity.class);
+        intent.putExtra("values", values);
+        intent.putExtra("frequencies", frequencies);
+
+        startActivity(intent);
     }
 
 }

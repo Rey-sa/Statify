@@ -15,9 +15,6 @@
             tools:replace="android:icon, android:label">
 
         <activity
-                android:name=".Activities.ResultActivity"
-                android:exported="false"/>
-        <activity
                 android:name=".Activities.ListViewActivity"
                 android:exported="true"
                 android:theme="@style/Theme.Statify">
@@ -27,6 +24,12 @@
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
+        <activity
+                android:name=".Activities.ResultActivity"
+                android:exported="false"/>
+        <activity
+                android:name=".Activities.FrequenciesActivity"
+                android:exported="false"/>
     </application>
 
 </manifest>

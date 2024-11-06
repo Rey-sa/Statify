@@ -43,7 +43,7 @@ public class ListViewActivity extends AppCompatActivity {
         if (getSupportActionBar() != null) {
             getSupportActionBar().hide();
         }
-        setContentView(R.layout.activity_listview);
+        setContentView(R.layout.activity_listview_layout);
 
         initializeViews();
         mSaveLoadManager = new SaveLoadManager(this);

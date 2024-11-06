@@ -21,49 +21,12 @@
             android:layout_marginTop="12dp"
     />
 
-   <!-- Table for Frequencies -->
-
-    <TableLayout
-            android:id="@+id/idTableLayout"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:stretchColumns="*"
-            android:padding="8dp"
-            android:layout_below="@+id/idLogo"
-    >
-
-        <TableRow
-                android:id="@+id/idHeaderValue">
-            <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/value"
-                    android:padding="8dp"
-                    android:textColor="@color/white"
-            />
-
-        </TableRow>
-
-        <TableRow
-                android:id="@+id/idHeaderFreq">
-            <TextView
-
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/count"
-                    android:padding="8dp"
-                    android:textColor="@color/white"
-
-            />
-
-        </TableRow>
-    </TableLayout>
 
     <!-- Layout for Cards -->
     <androidx.gridlayout.widget.GridLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_below="@id/idTableLayout"
+            android:layout_below="@id/idLogo"
             app:rowCount="3"
             app:columnCount="2"
             android:layout_margin="10dp"
@@ -336,7 +299,9 @@
                         android:id="@+id/idTextCard21"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:text="@string/abs_rel"
                         android:textStyle="bold"
+                        android:textSize="@dimen/card_text_size"
                         android:textAlignment="center"/>
 
             </LinearLayout>
