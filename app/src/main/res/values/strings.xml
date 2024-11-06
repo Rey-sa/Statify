@@ -10,5 +10,6 @@
     <string name="edit">Edit</string>
     <string name="deviation">Deviation</string>
     <string name="variance">Variance</string>
+    <string name="frequencies">Frequencies</string>
 
 </resources>

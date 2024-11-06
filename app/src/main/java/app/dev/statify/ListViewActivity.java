@@ -7,12 +7,10 @@ import android.os.Bundle;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.ListView;
+import android.widget.*;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
+import app.dev.statify.OCL.OnClickListener;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import java.lang.reflect.Type;
@@ -25,6 +23,7 @@ public class ListViewActivity extends AppCompatActivity {
     private EditText mEditText;
     private Button mBtnNewData, mBtnEditData;
     private ListView mListView;
+
     private ArrayList<ArrayList<Double>> mArrayList;
     private ArrayAdapter<ArrayList<Double>> mAdapter;
     private SharedPreferences mStatRowSettings;
@@ -49,7 +48,7 @@ public class ListViewActivity extends AppCompatActivity {
         setUpAdapters();
     }
 
-    private void handleSubmit() {
+    public void handleSubmit() {
         String s = mEditText.getText().toString().trim();
 
         if (!s.isEmpty()) {
@@ -78,7 +77,7 @@ public class ListViewActivity extends AppCompatActivity {
         }
     }
 
-    private void handleItemClick(int position) {
+    public void handleItemClick(int position) {
 
         selectedData = mArrayList.get(position);
         TreeMap<Double,Integer> frequencyMap = Calculations.calcAbsFreq(selectedData);
@@ -140,8 +139,11 @@ public class ListViewActivity extends AppCompatActivity {
 
     private void setUpListeners() {
 
-        mBtnNewData.setOnClickListener(v -> changeNewDataMode());
-        mBtnEditData.setOnClickListener(v -> changeEditMode());
+        OnClickListener listener = new OnClickListener(this);
+
+        mBtnNewData.setOnClickListener(listener);
+        mBtnEditData.setOnClickListener(listener);
+        mEditText.setOnClickListener(listener);
 
         mEditText.setOnKeyListener((v, keyCode, keyEvent) -> {
             if ((keyEvent.getAction() == KeyEvent.ACTION_DOWN) && (keyCode == KeyEvent.KEYCODE_ENTER)) {
@@ -165,6 +167,9 @@ public class ListViewActivity extends AppCompatActivity {
                 handleItemClick(position);
             }
         });
+
+
+
     }
 
     private void setUpAdapters() {
@@ -193,7 +198,7 @@ public class ListViewActivity extends AppCompatActivity {
         }
     }
 
-    private void changeEditMode() {
+    public void changeEditMode() {
         mIsEditMode = !mIsEditMode;
         mBtnEditData.setText(mIsEditMode ? "Done" : "Edit");
         mAdapter.notifyDataSetChanged();
@@ -208,7 +213,7 @@ public class ListViewActivity extends AppCompatActivity {
         }
     }
 
-    private void changeNewDataMode(){
+    public void changeNewDataMode(){
         mIsNewDataMode = !mIsNewDataMode;
         mBtnNewData.setText(mIsNewDataMode ? "Cancel" : "New Data");
         mBtnEditData.setEnabled(false);
@@ -241,5 +246,7 @@ public class ListViewActivity extends AppCompatActivity {
         mAdapter.notifyDataSetChanged();
 
     }
+
+
 
 }

@@ -5,7 +5,10 @@ import android.view.Gravity;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
+import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.cardview.widget.CardView;
+import app.dev.statify.OCL.OnClickListener;
 
 import java.util.ArrayList;
 import java.util.Locale;
@@ -14,7 +17,7 @@ import java.util.Locale;
 public class ResultActivity extends AppCompatActivity {
 
     private TableLayout mTableLayout;
-
+    private CardView mCard21;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,6 +66,10 @@ public class ResultActivity extends AppCompatActivity {
 
         }
         setUpCardContent(selectedData);
+
+        mCard21 = findViewById(R.id.idCard21);
+        OnClickListener listener = new OnClickListener(this);
+        mCard21.setOnClickListener(listener);
     }
 
 
@@ -94,7 +101,8 @@ public class ResultActivity extends AppCompatActivity {
     }
 
 
-
-
+    public void handleCardClick(){
+        Toast.makeText(this, "Card21 wurde geklickt", Toast.LENGTH_SHORT).show();
+    }
 
 }
