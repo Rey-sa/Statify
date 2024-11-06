@@ -15,10 +15,10 @@
             tools:replace="android:icon, android:label">
 
         <activity
-                android:name=".ResultActivity"
+                android:name=".Activities.ResultActivity"
                 android:exported="false"/>
         <activity
-                android:name=".ListViewActivity"
+                android:name=".Activities.ListViewActivity"
                 android:exported="true"
                 android:theme="@style/Theme.Statify">
             <intent-filter>

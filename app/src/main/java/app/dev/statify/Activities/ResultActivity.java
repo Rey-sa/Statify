@@ -1,4 +1,4 @@
-package app.dev.statify;
+package app.dev.statify.Activities;
 
 import android.os.Bundle;
 import android.view.Gravity;
@@ -8,7 +8,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
-import app.dev.statify.OCL.OnClickListener;
+import app.dev.statify.Calculations;
+import app.dev.statify.Listener.OnClickListener;
+import app.dev.statify.R;
 
 import java.util.ArrayList;
 import java.util.Locale;

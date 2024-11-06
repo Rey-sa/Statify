@@ -1,10 +1,10 @@
-package app.dev.statify.OCL;
+package app.dev.statify.Listener;
 
 import android.view.View;
 import android.widget.ListView;
-import app.dev.statify.ListViewActivity;
+import app.dev.statify.Activities.ListViewActivity;
 import app.dev.statify.R;
-import app.dev.statify.ResultActivity;
+import app.dev.statify.Activities.ResultActivity;
 
 
 public class OnClickListener implements View.OnClickListener{

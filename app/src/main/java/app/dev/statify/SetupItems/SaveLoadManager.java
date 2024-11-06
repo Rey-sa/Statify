@@ -1,4 +1,4 @@
-package app.dev.statify;
+package app.dev.statify.SetupItems;
 
 import android.content.Context;
 import android.content.SharedPreferences;

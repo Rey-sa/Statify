@@ -1,4 +1,4 @@
-package app.dev.statify;
+package app.dev.statify.Activities;
 
 public class FrequenciesActivity {
 }

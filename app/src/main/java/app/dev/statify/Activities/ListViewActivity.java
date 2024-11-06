@@ -1,31 +1,40 @@
-package app.dev.statify;
+package app.dev.statify.Activities;
+
+//region Imports
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.KeyEvent;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.*;
+import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.ListView;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
-import app.dev.statify.OCL.OnClickListener;
+import app.dev.statify.Calculations;
+import app.dev.statify.Listener.OnClickListener;
+import app.dev.statify.R;
+import app.dev.statify.SetupItems.Adapter;
+import app.dev.statify.SetupItems.SaveLoadManager;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.TreeMap;
+//endregion
 
 public class ListViewActivity extends AppCompatActivity {
 
+
+    //region Declaration instance variables
     private EditText mEditText;
     private Button mBtnNewData, mBtnEditData;
     private ListView mListView;
-
     private ArrayList<ArrayList<Double>> mArrayList;
     private ArrayAdapter<ArrayList<Double>> mAdapter;
     private SaveLoadManager mSaveLoadManager;
     private boolean mIsEditMode = false;
     private boolean mIsNewDataMode = false;
-    private ArrayList<Double> selectedData;
-
+    //endregion
 
 
     @Override
@@ -74,15 +83,14 @@ public class ListViewActivity extends AppCompatActivity {
                 mArrayList.add(tempArrayList);
                 mAdapter.notifyDataSetChanged();
                 mEditText.setText("");
-
-                SaveLoadManager.saveStatRows(mArrayList);
+                saveStatRows();
             }
         }
     }
 
     public void handleItemClick(int position) {
 
-        selectedData = mArrayList.get(position);
+        ArrayList<Double> selectedData = mArrayList.get(position);
         TreeMap<Double,Integer> frequencyMap = Calculations.calcAbsFreq(selectedData);
 
         ArrayList<Double> values = new ArrayList<>(frequencyMap.keySet());
@@ -96,8 +104,6 @@ public class ListViewActivity extends AppCompatActivity {
         mAdapter.notifyDataSetChanged();
 
     }
-
-
 
 
     private void initializeViews() {
@@ -142,23 +148,12 @@ public class ListViewActivity extends AppCompatActivity {
 
     }
 
-    private void setUpAdapters() {
-        mAdapter = new ArrayAdapter<ArrayList<Double>>(this, android.R.layout.simple_list_item_1, mArrayList) {
-
-            @Override
-            public View getView(int position, View convertView, ViewGroup parent) {
-                View view = super.getView(position, convertView, parent);
-
-                if (mIsEditMode) {
-                    view.setBackgroundColor(ContextCompat.getColor(getContext(), R.color.statify_light_blue));
-                } else {
-                    view.setBackgroundColor(Color.TRANSPARENT);
-                }
-                return view;
-            }
-        };
+    private void setUpAdapters(){
+        mAdapter = new Adapter(this, mArrayList, mIsEditMode);
         mListView.setAdapter(mAdapter);
     }
+
+
 
 
     private void changeTextVisibility(boolean visible) {
