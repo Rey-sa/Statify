@@ -12,5 +12,6 @@
     <string name="variance">Variance</string>
     <string name="frequencies">Frequencies</string>
     <string name="abs_rel">Abs/Rel</string>
+    <string name="frequenciesHeader">Frequencies</string>
 
 </resources>

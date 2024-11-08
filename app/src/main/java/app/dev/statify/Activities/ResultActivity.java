@@ -2,6 +2,7 @@ package app.dev.statify.Activities;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
@@ -78,5 +79,9 @@ public class ResultActivity extends AppCompatActivity {
 
         startActivity(intent);
     }
+
+    public void onBackClick(View v){
+            finish();
+        }
 
 }

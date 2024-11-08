@@ -1,6 +1,7 @@
 package app.dev.statify.Activities;
 
 import android.os.Bundle;
+import android.view.View;
 import androidx.appcompat.app.AppCompatActivity;
 import app.dev.statify.Calculations;
 import app.dev.statify.R;
@@ -9,6 +10,7 @@ import com.anychart.AnyChartView;
 import com.anychart.chart.common.dataentry.DataEntry;
 import com.anychart.chart.common.dataentry.ValueDataEntry;
 import com.anychart.charts.Pie;
+import com.anychart.enums.LegendLayout;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -53,14 +55,22 @@ public class FrequenciesActivity extends AppCompatActivity {
         pie.data(chartItem);
         mAbsFreqChart = findViewById(R.id.idAbsFreqChart);
 
-        pie.title("Frequencies");
-        pie.title().fontSize(30);
-        pie.labels().fontSize(24);
-        pie.labels().position("outside");
-        pie.labels().rotation(0);
-        pie.labels().format("{%Value}");
+        pie.labels().fontSize(24)
+            .position("outside")
+            .rotation(0)
+            .format("{%Value}");
+
         pie.tooltip().fontSize(24);
-        pie.legend().enabled(false);
+
+        pie.legend()
+                .position("top")
+                .itemsLayout(LegendLayout.HORIZONTAL)
+                .align("center");
+
         mAbsFreqChart.setChart(pie);
+    }
+
+    public void onBackClick(View v){
+        finish();
     }
 }

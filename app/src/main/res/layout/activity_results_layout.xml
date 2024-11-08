@@ -8,28 +8,47 @@
         android:background="@drawable/background_gradient"
         >
 
-
-    <!-- Logo -->
-    <TextView
-            android:id="@+id/idLogo"
-            android:textSize="30sp"
-            android:layout_width="wrap_content"
+    <LinearLayout
+            android:id="@+id/idHeaderBar"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
-            android:textColor="@color/white"
-            android:text="@string/app_name"
-            android:layout_marginTop="12dp"
-    />
+            android:orientation="horizontal"
+            android:layout_alignParentTop="true"
+            android:padding="16dp"
+            android:gravity="center_vertical">
+        <ImageButton
+                android:id="@+id/idBtnBack"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_back_arrow"
+                android:background="?android:attr/selectableItemBackground"
+                android:onClick="onBackClick"
+                android:layout_gravity="center"
+        />
 
+
+        <!-- Logo -->
+        <TextView
+                android:id="@+id/idLogo"
+                android:textSize="24sp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:textColor="@color/white"
+                android:text="@string/app_name"
+                android:layout_weight="1"
+                android:gravity="center"
+        />
+    </LinearLayout>
 
     <!-- Layout for Cards -->
     <androidx.gridlayout.widget.GridLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_below="@id/idLogo"
+            android:layout_below="@id/idHeaderBar"
             app:rowCount="3"
             app:columnCount="2"
-            android:layout_margin="10dp"
+
     >
 
         <!-- Display Card 0 | 0 -->
