@@ -2,6 +2,7 @@ package app.dev.statify.Activities;
 
 import android.os.Bundle;
 import androidx.appcompat.app.AppCompatActivity;
+import app.dev.statify.Calculations;
 import app.dev.statify.R;
 import com.anychart.AnyChart;
 import com.anychart.AnyChartView;
@@ -11,10 +12,13 @@ import com.anychart.charts.Pie;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+import java.util.TreeMap;
 
 public class FrequenciesActivity extends AppCompatActivity {
 
     AnyChartView mAbsFreqChart;
+    private ArrayList<Double> mSelectedData;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,30 +29,30 @@ public class FrequenciesActivity extends AppCompatActivity {
         }
         setContentView(R.layout.activity_frequencies_layout);
 
-        mAbsFreqChart = findViewById(R.id.idAbsFreqChart);
+        mSelectedData = (ArrayList<Double>) getIntent().getSerializableExtra("selected_data");
 
-        ArrayList<Double> values = (ArrayList<Double>) getIntent().getSerializableExtra("values");
-        ArrayList<Integer> frequencies = (ArrayList<Integer>) getIntent().getSerializableExtra("frequencies");
-
-
-        if(values == null || frequencies == null){
-            throw new IllegalArgumentException("Values,freq ore data are missing");
+        if(mSelectedData == null){
+            throw new IllegalArgumentException("Selected Data is missing");
         }
 
-        setUpPieChart(values, frequencies);
+
+
+        TreeMap<Double,Integer> freqMap = Calculations.calcAbsFreq(mSelectedData);
+        setUpPieChart(freqMap);
 
     }
 
-    private void setUpPieChart(ArrayList<Double> values, ArrayList<Integer> frequencies){
+    private void setUpPieChart(TreeMap<Double, Integer> freqMap){
         Pie pie = AnyChart.pie();
-        List<DataEntry> chartItem = new ArrayList<>();
 
-        for(int i = 0; i < values.size(); i++){
-            String label = "Val: " + values.get(i) + " | Freq: " + frequencies.get(i);
-            chartItem.add(new ValueDataEntry(label, frequencies.get(i)));
+        List<DataEntry> chartItem = new ArrayList<>();
+        for(Map.Entry<Double,Integer> entry : freqMap.entrySet()){
+            chartItem.add(new ValueDataEntry(entry.getKey().toString(), entry.getValue()));
         }
 
         pie.data(chartItem);
+        mAbsFreqChart = findViewById(R.id.idAbsFreqChart);
+
         pie.title("Frequencies");
         pie.title().fontSize(30);
         pie.labels().fontSize(24);

@@ -21,10 +21,6 @@ public class Calculations {
         return new TreeMap<>(frequencyMap);
     }
 
-    public void calcRelFreq(ArrayList<Double> arr){
-
-    }
-
     public static double calcMedian(ArrayList<Double> selectedData){
 
         sortSelectedData(selectedData);

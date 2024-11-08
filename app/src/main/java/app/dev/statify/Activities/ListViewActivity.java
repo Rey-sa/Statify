@@ -1,6 +1,7 @@
 package app.dev.statify.Activities;
 
 //region Imports
+
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -12,14 +13,13 @@ import android.widget.EditText;
 import android.widget.ListView;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
-import app.dev.statify.Calculations;
 import app.dev.statify.Listener.OnClickListener;
 import app.dev.statify.R;
 import app.dev.statify.SetupItems.Adapter;
 import app.dev.statify.SetupItems.SaveLoadManager;
+
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.TreeMap;
 //endregion
 
 public class ListViewActivity extends AppCompatActivity {
@@ -91,14 +91,8 @@ public class ListViewActivity extends AppCompatActivity {
     public void handleItemClick(int position) {
 
         ArrayList<Double> selectedData = mArrayList.get(position);
-        TreeMap<Double,Integer> frequencyMap = Calculations.calcAbsFreq(selectedData);
-
-        ArrayList<Double> values = new ArrayList<>(frequencyMap.keySet());
-        ArrayList<Integer> frequencies = new ArrayList<>(frequencyMap.values());
 
         Intent intent = new Intent(ListViewActivity.this, ResultActivity.class);
-        intent.putExtra("values", values);
-        intent.putExtra("frequencies", frequencies);
         intent.putExtra("selected_data", selectedData);
         startActivity(intent);
         mAdapter.notifyDataSetChanged();
