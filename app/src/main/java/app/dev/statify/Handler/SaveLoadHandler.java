@@ -1,4 +1,4 @@
-package app.dev.statify.SetupItems;
+package app.dev.statify.Handler;
 
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -7,12 +7,12 @@ import com.google.gson.reflect.TypeToken;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 
-public class SaveLoadManager {
+public class SaveLoadHandler {
 
         private static SharedPreferences mSharedPreferences;
         private final String PREFS_NAME = "StatRowPrefs";
 
-        public SaveLoadManager(Context context){
+        public SaveLoadHandler(Context context){
             mSharedPreferences = context.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE);
         }
 
@@ -31,8 +31,6 @@ public class SaveLoadManager {
         mArrayList.addAll(lastEntries);
 
     }
-
-
 
     // Reconvert Gson to ArrayList Element for loading last statistical rows
     public static ArrayList<ArrayList<Double>> loadStatRows() {
