@@ -5,7 +5,6 @@ package app.dev.statify.Activities;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.view.KeyEvent;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -13,6 +12,7 @@ import android.widget.EditText;
 import android.widget.ListView;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
+import app.dev.statify.Handler.EditTextKeyHandler;
 import app.dev.statify.Handler.SubmitHandler;
 import app.dev.statify.Listener.OnClickListener;
 import app.dev.statify.Listener.OnItemLongClickListener;
@@ -36,6 +36,7 @@ public class ListViewActivity extends AppCompatActivity {
     private boolean mIsEditMode = false;
     private boolean mIsNewDataMode = false;
     private SubmitHandler mSubmitHandler;
+    private EditTextKeyHandler mEditTextKeyHandler;
     //endregion
 
 
@@ -50,6 +51,7 @@ public class ListViewActivity extends AppCompatActivity {
         initializeViews();
         mSaveLoadManager = new SaveLoadManager(this);
         mSubmitHandler = new SubmitHandler(this);
+        mEditTextKeyHandler = new EditTextKeyHandler(this, mSubmitHandler);
         setUpListeners();
         loadStatRows();
         setUpAdapters();
@@ -62,34 +64,6 @@ public class ListViewActivity extends AppCompatActivity {
     public void saveStatRows(){
         mSaveLoadManager.saveStatRows(mArrayList);
     }
-
-//    public void handleSubmit() {
-//        String s = mEditText.getText().toString().trim();
-//
-//        if (!s.isEmpty()) {
-//
-//            ArrayList<String> inputArrayList = new ArrayList<>(Arrays.asList(s.split(" ")));
-//            ArrayList<Double> tempArrayList = new ArrayList<>();
-//
-//            for (String ss : inputArrayList) {
-//                ss = ss.replace(",", ".");
-//
-//                try {
-//                    tempArrayList.add(Double.parseDouble(ss.trim()));
-//                } catch (NumberFormatException e) {
-//                    e.printStackTrace();
-//                }
-//
-//            }
-//
-//            if (!inputArrayList.isEmpty()) {
-//                mArrayList.add(tempArrayList);
-//                mAdapter.notifyDataSetChanged();
-//                mEditText.setText("");
-//                saveStatRows();
-//            }
-//        }
-//    }
 
     public void handleItemClick(int position) {
 
@@ -119,21 +93,6 @@ public class ListViewActivity extends AppCompatActivity {
         mBtnEditData.setOnClickListener(listener);
         mEditText.setOnClickListener(listener);
         mListView.setOnItemLongClickListener(longListener);
-
-        mEditText.setOnKeyListener((v, keyCode, keyEvent) -> {
-            if ((keyEvent.getAction() == KeyEvent.ACTION_DOWN) && (keyCode == KeyEvent.KEYCODE_ENTER)) {
-                mSubmitHandler.handleSubmit(mEditText);
-                if(mIsNewDataMode){
-                changeNewDataMode();
-                }
-                if(mIsEditMode){
-                    changeEditMode();
-                }
-
-                return true;
-            }
-            return false;
-        });
 
         mListView.setOnItemClickListener((parent, view, position, id) -> {
             if (mIsEditMode) {
@@ -252,7 +211,6 @@ public class ListViewActivity extends AppCompatActivity {
     }
 
     //endregion
-
 
     }
 
