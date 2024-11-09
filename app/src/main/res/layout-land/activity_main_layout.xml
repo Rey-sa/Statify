@@ -7,7 +7,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        android:background="@color/statify_dark_blue">
+        android:background="@drawable/background_gradient">
 
     <TextView
             android:id="@+id/idLogo"
@@ -49,7 +49,7 @@
 
                 <Button
                         android:id="@+id/idBtnNewData"
-                        android:text="New Data"
+                        android:text="@string/new_dataset"
                         android:backgroundTint="@color/statify_turquise"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
@@ -60,7 +60,7 @@
                 />
                 <Button
                         android:id="@+id/idBtnEditData"
-                        android:text="Edit"
+                        android:text="@string/edit"
                         android:backgroundTint="@color/statify_orange"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"

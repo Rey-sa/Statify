@@ -46,7 +46,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_below="@id/idHeaderBar"
-            app:rowCount="3"
+            app:rowCount="4"
             app:columnCount="2"
 
     >
@@ -319,6 +319,59 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/abs_rel"
+                        android:textStyle="bold"
+                        android:textSize="@dimen/card_text_size"
+                        android:textAlignment="center"/>
+
+            </LinearLayout>
+
+
+
+
+
+        </androidx.cardview.widget.CardView>
+
+        <!-- Display Card 3 | 0 -->
+        <androidx.cardview.widget.CardView
+                android:id="@+id/idCard30"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                app:layout_row="3"
+                app:layout_column="0"
+                app:layout_gravity="fill"
+                app:layout_rowWeight="1"
+                app:layout_columnWeight="1"
+                app:layout_columnSpan="2"
+                android:layout_margin="8dp"
+                app:cardCornerRadius="8dp"
+                android:elevation="8dp"
+
+        >
+            <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:gravity="center"
+                    app:layout_gravity="center_vertical|center_horizontal"
+                    android:background="@color/card_background"
+
+            >
+
+                <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/classification"
+                        android:textSize="@dimen/card_icon_size"
+                        android:gravity="center"
+                        android:textColor="@color/black"
+                        android:padding="@dimen/card_padding"
+
+                />
+                <TextView
+                        android:id="@+id/idTextCard30"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/create"
                         android:textStyle="bold"
                         android:textSize="@dimen/card_text_size"
                         android:textAlignment="center"/>

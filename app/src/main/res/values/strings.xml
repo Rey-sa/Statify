@@ -13,5 +13,8 @@
     <string name="frequencies">Frequencies</string>
     <string name="abs_rel">Abs/Rel</string>
     <string name="frequenciesHeader">Frequencies</string>
+    <string name="classification">Classification</string>
+    <string name="create">Create</string>
+    <string name="new_dataset">New Dataset</string>
 
 </resources>
