@@ -14,6 +14,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 import app.dev.statify.Handler.EditTextKeyHandler;
 import app.dev.statify.Handler.SubmitHandler;
+import app.dev.statify.Listener.EditTextKeyListener;
 import app.dev.statify.Listener.OnClickListener;
 import app.dev.statify.Listener.OnItemLongClickListener;
 import app.dev.statify.R;
@@ -88,11 +89,13 @@ public class ListViewActivity extends AppCompatActivity {
 
         OnClickListener listener = new OnClickListener(this);
         OnItemLongClickListener longListener = new OnItemLongClickListener(this);
+        EditTextKeyListener keyListener = new EditTextKeyListener(mEditTextKeyHandler);
 
         mBtnNewData.setOnClickListener(listener);
         mBtnEditData.setOnClickListener(listener);
         mEditText.setOnClickListener(listener);
         mListView.setOnItemLongClickListener(longListener);
+        mEditText.setOnKeyListener(keyListener);
 
         mListView.setOnItemClickListener((parent, view, position, id) -> {
             if (mIsEditMode) {

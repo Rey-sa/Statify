@@ -4,7 +4,7 @@ import android.view.KeyEvent;
 import android.view.View;
 import app.dev.statify.Activities.ListViewActivity;
 
-public class EditTextKeyHandler implements View.OnKeyListener{
+public class EditTextKeyHandler{
 
     private ListViewActivity mActivity;
     private SubmitHandler mSubmitHandler;
@@ -16,8 +16,8 @@ public class EditTextKeyHandler implements View.OnKeyListener{
         this.mSubmitHandler = handler;
     }
 
-    @Override
-    public boolean onKey(View v, int keyCode, KeyEvent event){
+
+    public boolean handleKey(View v, int keyCode, KeyEvent event){
         if ((event.getAction() == KeyEvent.ACTION_DOWN) && (keyCode == KeyEvent.KEYCODE_ENTER)) {
             mSubmitHandler.handleSubmit(mActivity.getEditText());
             if(mIsNewDataMode){
@@ -31,8 +31,5 @@ public class EditTextKeyHandler implements View.OnKeyListener{
         }
         return false;
     }
-
-
-
 
 }
