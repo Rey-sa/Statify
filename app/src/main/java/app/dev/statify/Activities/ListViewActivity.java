@@ -13,6 +13,7 @@ import android.widget.EditText;
 import android.widget.ListView;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
+import app.dev.statify.Handler.SubmitHandler;
 import app.dev.statify.Listener.OnClickListener;
 import app.dev.statify.Listener.OnItemLongClickListener;
 import app.dev.statify.R;
@@ -20,7 +21,6 @@ import app.dev.statify.SetupItems.Adapter;
 import app.dev.statify.SetupItems.SaveLoadManager;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 //endregion
 
 public class ListViewActivity extends AppCompatActivity {
@@ -35,6 +35,7 @@ public class ListViewActivity extends AppCompatActivity {
     private SaveLoadManager mSaveLoadManager;
     private boolean mIsEditMode = false;
     private boolean mIsNewDataMode = false;
+    private SubmitHandler mSubmitHandler;
     //endregion
 
 
@@ -48,46 +49,47 @@ public class ListViewActivity extends AppCompatActivity {
 
         initializeViews();
         mSaveLoadManager = new SaveLoadManager(this);
+        mSubmitHandler = new SubmitHandler(this);
         setUpListeners();
         loadStatRows();
         setUpAdapters();
     }
 
-    private void loadStatRows(){
+    public void loadStatRows(){
         mArrayList = mSaveLoadManager.loadStatRows();
     }
 
-    private void saveStatRows(){
+    public void saveStatRows(){
         mSaveLoadManager.saveStatRows(mArrayList);
     }
 
-    public void handleSubmit() {
-        String s = mEditText.getText().toString().trim();
-
-        if (!s.isEmpty()) {
-
-            ArrayList<String> inputArrayList = new ArrayList<>(Arrays.asList(s.split(" ")));
-            ArrayList<Double> tempArrayList = new ArrayList<>();
-
-            for (String ss : inputArrayList) {
-                ss = ss.replace(",", ".");
-
-                try {
-                    tempArrayList.add(Double.parseDouble(ss.trim()));
-                } catch (NumberFormatException e) {
-                    e.printStackTrace();
-                }
-
-            }
-
-            if (!inputArrayList.isEmpty()) {
-                mArrayList.add(tempArrayList);
-                mAdapter.notifyDataSetChanged();
-                mEditText.setText("");
-                saveStatRows();
-            }
-        }
-    }
+//    public void handleSubmit() {
+//        String s = mEditText.getText().toString().trim();
+//
+//        if (!s.isEmpty()) {
+//
+//            ArrayList<String> inputArrayList = new ArrayList<>(Arrays.asList(s.split(" ")));
+//            ArrayList<Double> tempArrayList = new ArrayList<>();
+//
+//            for (String ss : inputArrayList) {
+//                ss = ss.replace(",", ".");
+//
+//                try {
+//                    tempArrayList.add(Double.parseDouble(ss.trim()));
+//                } catch (NumberFormatException e) {
+//                    e.printStackTrace();
+//                }
+//
+//            }
+//
+//            if (!inputArrayList.isEmpty()) {
+//                mArrayList.add(tempArrayList);
+//                mAdapter.notifyDataSetChanged();
+//                mEditText.setText("");
+//                saveStatRows();
+//            }
+//        }
+//    }
 
     public void handleItemClick(int position) {
 
@@ -120,7 +122,7 @@ public class ListViewActivity extends AppCompatActivity {
 
         mEditText.setOnKeyListener((v, keyCode, keyEvent) -> {
             if ((keyEvent.getAction() == KeyEvent.ACTION_DOWN) && (keyCode == KeyEvent.KEYCODE_ENTER)) {
-                handleSubmit();
+                mSubmitHandler.handleSubmit(mEditText);
                 if(mIsNewDataMode){
                 changeNewDataMode();
                 }
@@ -211,6 +213,45 @@ public class ListViewActivity extends AppCompatActivity {
         mAdapter.notifyDataSetChanged();
         saveStatRows();
     }
+
+    //region Getter
+    public EditText getEditText() {
+        return mEditText;
+    }
+
+    public Button getBtnNewData() {
+        return mBtnNewData;
+    }
+
+    public Button getBtnEditData() {
+        return mBtnEditData;
+    }
+
+    public ListView getListView() {
+        return mListView;
+    }
+
+    public ArrayList<ArrayList<Double>> getArrayList() {
+        return mArrayList;
+    }
+
+    public ArrayAdapter<ArrayList<Double>> getAdapter() {
+        return mAdapter;
+    }
+
+    public SaveLoadManager getSaveLoadManager() {
+        return mSaveLoadManager;
+    }
+
+    public boolean isIsEditMode() {
+        return mIsEditMode;
+    }
+
+    public boolean isIsNewDataMode() {
+        return mIsNewDataMode;
+    }
+
+    //endregion
 
 
     }
