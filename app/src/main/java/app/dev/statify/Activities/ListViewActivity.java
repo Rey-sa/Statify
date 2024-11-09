@@ -13,13 +13,14 @@ import android.widget.ListView;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 import app.dev.statify.Handler.EditTextKeyHandler;
+import app.dev.statify.Handler.SaveLoadHandler;
 import app.dev.statify.Handler.SubmitHandler;
 import app.dev.statify.Listener.EditTextKeyListener;
 import app.dev.statify.Listener.OnClickListener;
 import app.dev.statify.Listener.OnItemLongClickListener;
 import app.dev.statify.R;
 import app.dev.statify.SetupItems.Adapter;
-import app.dev.statify.SetupItems.SaveLoadManager;
+
 
 import java.util.ArrayList;
 //endregion
@@ -33,7 +34,7 @@ public class ListViewActivity extends AppCompatActivity {
     private ListView mListView;
     private ArrayList<ArrayList<Double>> mArrayList;
     private ArrayAdapter<ArrayList<Double>> mAdapter;
-    private SaveLoadManager mSaveLoadManager;
+    private SaveLoadHandler mSaveLoadManager;
     private boolean mIsEditMode = false;
     private boolean mIsNewDataMode = false;
     private SubmitHandler mSubmitHandler;
@@ -50,7 +51,7 @@ public class ListViewActivity extends AppCompatActivity {
         setContentView(R.layout.activity_listview_layout);
 
         initializeViews();
-        mSaveLoadManager = new SaveLoadManager(this);
+        mSaveLoadManager = new SaveLoadHandler(this);
         mSubmitHandler = new SubmitHandler(this);
         mEditTextKeyHandler = new EditTextKeyHandler(this, mSubmitHandler);
         setUpListeners();
@@ -201,7 +202,7 @@ public class ListViewActivity extends AppCompatActivity {
         return mAdapter;
     }
 
-    public SaveLoadManager getSaveLoadManager() {
+    public SaveLoadHandler getSaveLoadManager() {
         return mSaveLoadManager;
     }
 
