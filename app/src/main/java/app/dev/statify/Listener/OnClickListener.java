@@ -2,7 +2,7 @@ package app.dev.statify.Listener;
 
 import android.view.View;
 import android.widget.ListView;
-import app.dev.statify.Activities.ListViewActivity;
+import app.dev.statify.Activities.MainActivity;
 import app.dev.statify.Activities.ResultActivity;
 import app.dev.statify.Handler.SubmitHandler;
 import app.dev.statify.R;
@@ -10,10 +10,10 @@ import app.dev.statify.R;
 
 public class OnClickListener implements View.OnClickListener{
 
-    private ListViewActivity mActivity;
+    private MainActivity mActivity;
     private ResultActivity mResultActivity;
 
-    public OnClickListener(ListViewActivity activity){
+    public OnClickListener(MainActivity activity){
         this.mActivity = activity;
     }
 

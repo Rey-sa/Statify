@@ -3,13 +3,13 @@ package app.dev.statify.Listener;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Toast;
-import app.dev.statify.Activities.ListViewActivity;
+import app.dev.statify.Activities.MainActivity;
 
 public class OnItemLongClickListener implements AdapterView.OnItemLongClickListener {
 
-    private ListViewActivity mActivity;
+    private MainActivity mActivity;
 
-    public OnItemLongClickListener(ListViewActivity activity){
+    public OnItemLongClickListener(MainActivity activity){
         this.mActivity = activity;
     }
 

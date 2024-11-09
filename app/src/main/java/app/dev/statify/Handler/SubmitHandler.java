@@ -1,16 +1,16 @@
 package app.dev.statify.Handler;
 
 import android.widget.EditText;
-import app.dev.statify.Activities.ListViewActivity;
+import app.dev.statify.Activities.MainActivity;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 
 public class SubmitHandler {
 
-    private ListViewActivity mActivity;
+    private MainActivity mActivity;
 
-    public SubmitHandler(ListViewActivity activity){
+    public SubmitHandler(MainActivity activity){
         this.mActivity = activity;
     }
 

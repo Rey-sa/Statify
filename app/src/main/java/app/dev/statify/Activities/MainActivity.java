@@ -25,7 +25,7 @@ import app.dev.statify.SetupItems.Adapter;
 import java.util.ArrayList;
 //endregion
 
-public class ListViewActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity {
 
 
     //region Declaration instance variables
@@ -48,7 +48,7 @@ public class ListViewActivity extends AppCompatActivity {
         if (getSupportActionBar() != null) {
             getSupportActionBar().hide();
         }
-        setContentView(R.layout.activity_listview_layout);
+        setContentView(R.layout.activity_main_layout);
 
         initializeViews();
         mSaveLoadManager = new SaveLoadHandler(this);
@@ -71,7 +71,7 @@ public class ListViewActivity extends AppCompatActivity {
 
         ArrayList<Double> selectedData = mArrayList.get(position);
 
-        Intent intent = new Intent(ListViewActivity.this, ResultActivity.class);
+        Intent intent = new Intent(MainActivity.this, ResultActivity.class);
         intent.putExtra("selected_data", selectedData);
         startActivity(intent);
         mAdapter.notifyDataSetChanged();

@@ -2,16 +2,16 @@ package app.dev.statify.Handler;
 
 import android.view.KeyEvent;
 import android.view.View;
-import app.dev.statify.Activities.ListViewActivity;
+import app.dev.statify.Activities.MainActivity;
 
 public class EditTextKeyHandler{
 
-    private ListViewActivity mActivity;
+    private MainActivity mActivity;
     private SubmitHandler mSubmitHandler;
     private boolean mIsNewDataMode;
     private boolean mIsEditMode;
 
-    public EditTextKeyHandler(ListViewActivity activity, SubmitHandler handler){
+    public EditTextKeyHandler(MainActivity activity, SubmitHandler handler){
         this.mActivity = activity;
         this.mSubmitHandler = handler;
     }
