@@ -14,6 +14,7 @@ import android.widget.ListView;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 import app.dev.statify.Listener.OnClickListener;
+import app.dev.statify.Listener.OnItemLongClickListener;
 import app.dev.statify.R;
 import app.dev.statify.SetupItems.Adapter;
 import app.dev.statify.SetupItems.SaveLoadManager;
@@ -110,10 +111,12 @@ public class ListViewActivity extends AppCompatActivity {
     private void setUpListeners() {
 
         OnClickListener listener = new OnClickListener(this);
+        OnItemLongClickListener longListener = new OnItemLongClickListener(this);
 
         mBtnNewData.setOnClickListener(listener);
         mBtnEditData.setOnClickListener(listener);
         mEditText.setOnClickListener(listener);
+        mListView.setOnItemLongClickListener(longListener);
 
         mEditText.setOnKeyListener((v, keyCode, keyEvent) -> {
             if ((keyEvent.getAction() == KeyEvent.ACTION_DOWN) && (keyCode == KeyEvent.KEYCODE_ENTER)) {
@@ -137,9 +140,6 @@ public class ListViewActivity extends AppCompatActivity {
                 handleItemClick(position);
             }
         });
-
-
-
     }
 
     private void setUpAdapters(){
@@ -204,6 +204,12 @@ public class ListViewActivity extends AppCompatActivity {
         mArrayList.remove(position);
         mAdapter.notifyDataSetChanged();
 
+    }
+
+    public void removeItemFromList(int position){
+        mArrayList.remove(position);
+        mAdapter.notifyDataSetChanged();
+        saveStatRows();
     }
 
 
