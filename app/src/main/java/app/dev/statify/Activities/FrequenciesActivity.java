@@ -29,7 +29,7 @@ public class FrequenciesActivity extends AppCompatActivity {
         if (getSupportActionBar() != null) {
             getSupportActionBar().hide();
         }
-        setContentView(R.layout.activity_frequencies_layout);
+        setContentView(R.layout.frequencies_layout);
 
         mSelectedData = (ArrayList<Double>) getIntent().getSerializableExtra("selected_data");
 

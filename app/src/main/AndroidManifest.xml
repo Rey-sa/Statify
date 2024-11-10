@@ -30,6 +30,10 @@
         <activity
                 android:name=".Activities.FrequenciesActivity"
                 android:exported="false"/>
+
+        <activity
+                android:name=".Activities.ClassificationActivity"
+                android:exported="false"/>
     </application>
 
 </manifest>

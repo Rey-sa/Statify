@@ -48,7 +48,7 @@ public class MainActivity extends AppCompatActivity {
         if (getSupportActionBar() != null) {
             getSupportActionBar().hide();
         }
-        setContentView(R.layout.activity_main_layout);
+        setContentView(R.layout.main_layout);
 
         initializeViews();
         mSaveLoadManager = new SaveLoadHandler(this);

@@ -35,6 +35,8 @@ public class OnClickListener implements View.OnClickListener{
             mActivity.handleItemClick(v.getId());
         } else if (v.getId() == R.id.idCard21) {
             mResultActivity.handleCardClick();
+        } else if(v.getId() == R.id.idCard30){
+            mResultActivity.goToClassify();
         }
     }
 }

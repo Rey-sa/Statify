@@ -17,6 +17,7 @@ import java.util.Locale;
 public class ResultActivity extends AppCompatActivity {
 
     private CardView mCard21;
+    private CardView mCard30;
     private ArrayList<Double> selectedData;
 
     @Override
@@ -26,7 +27,7 @@ public class ResultActivity extends AppCompatActivity {
             if (getSupportActionBar() != null) {
                 getSupportActionBar().hide();
             }
-            setContentView(R.layout.activity_results_layout);
+            setContentView(R.layout.results_layout);
 
             selectedData = (ArrayList<Double>) getIntent().getSerializableExtra("selected_data");
 
@@ -39,11 +40,14 @@ public class ResultActivity extends AppCompatActivity {
         mCard21 = findViewById(R.id.idCard21);
         OnClickListener listener = new OnClickListener(this);
         mCard21.setOnClickListener(listener);
+
+        mCard30 = findViewById(R.id.idCard30);
+        mCard30.setOnClickListener(listener);
     }
 
 
     private void setUpCardContent(ArrayList<Double> selectedData){
-        TextView Card00, Card01, Card10, Card11, Card20, Card21;
+        TextView Card00, Card01, Card10, Card11, Card20;
 
 
         //Find Views
@@ -52,7 +56,6 @@ public class ResultActivity extends AppCompatActivity {
         Card10 =findViewById(R.id.idTextCard10);
         Card11 =findViewById(R.id.idTextCard11);
         Card20 =findViewById(R.id.idTextCard20);
-        Card21 =findViewById(R.id.idTextCard21);
 
 
         // Perform needed calculations
@@ -82,6 +85,13 @@ public class ResultActivity extends AppCompatActivity {
 
     public void onBackClick(View v){
             finish();
-        }
+    }
+
+    public void goToClassify(){
+        Intent intent = new Intent(ResultActivity.this, ClassificationActivity.class);
+        intent.putExtra("selected_data", selectedData);
+
+        startActivity(intent);
+    }
 
 }

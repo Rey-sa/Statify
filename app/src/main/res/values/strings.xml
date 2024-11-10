@@ -1,6 +1,6 @@
 <resources>
     <string name="app_name">Statify</string>
-    <string name="hint_statRow">Enter new statistical series</string>
+    <string name="hint_statRow">Enter Dataset separated by comma</string>
     <string name="count">Count</string>
     <string name="value">Value</string>
     <string name="arithmetic">Arithmetic</string>
@@ -16,5 +16,7 @@
     <string name="classification">Classification</string>
     <string name="create">Create</string>
     <string name="new_dataset">New Dataset</string>
+    <string name="classify">Classify</string>
+    <string name="enter_classlimits_seperated_by_space">Enter Classlimits seperated by space</string>
 
 </resources>
