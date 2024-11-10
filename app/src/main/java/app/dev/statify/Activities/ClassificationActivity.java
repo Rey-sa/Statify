@@ -1,6 +1,7 @@
 package app.dev.statify.Activities;
 
 import android.os.Bundle;
+import android.view.View;
 import android.widget.EditText;
 import androidx.appcompat.app.AppCompatActivity;
 import app.dev.statify.Handler.ClassifyInputHandler;
@@ -51,5 +52,9 @@ public class ClassificationActivity extends AppCompatActivity {
 
     public AnyChartView getChartView() {
         return mBarDiagramm;
+    }
+
+    public void onBackClick(View v){
+        finish();
     }
 }

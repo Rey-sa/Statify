@@ -61,6 +61,7 @@ public class FrequenciesActivity extends AppCompatActivity {
             .format("{%Value}");
 
         pie.tooltip().fontSize(24);
+        pie.title("Frequencies");
 
         pie.legend()
                 .position("top")

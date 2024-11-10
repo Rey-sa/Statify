@@ -31,7 +31,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:textColor="@color/white"
-                android:text="@string/frequenciesHeader"
+                android:text="@string/app_name"
 
                 android:layout_weight="1"
                 android:layout_gravity="center_vertical"
