@@ -63,6 +63,13 @@
                     android:hint="@string/enter_classlimits_serperated_by_comma"
                     android:layout_margin="8dp"/>
 
+            <com.anychart.AnyChartView
+
+                    android:id="@+id/idClassificationBar"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:visibility="gone"/>
+
         </androidx.cardview.widget.CardView>
 
 </LinearLayout>

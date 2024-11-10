@@ -5,6 +5,7 @@ import android.widget.EditText;
 import androidx.appcompat.app.AppCompatActivity;
 import app.dev.statify.Handler.ClassifyInputHandler;
 import app.dev.statify.R;
+import com.anychart.AnyChartView;
 
 import java.util.ArrayList;
 
@@ -13,6 +14,7 @@ public class ClassificationActivity extends AppCompatActivity {
     private ArrayList<Double> mSelectedData;
     private EditText mClassLimitInput;
     private ClassifyInputHandler mClassifyInputHandler;
+    private AnyChartView mBarDiagramm;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,6 +32,7 @@ public class ClassificationActivity extends AppCompatActivity {
         }
 
         mClassLimitInput = findViewById(R.id.idClassLimitInput);
+        mBarDiagramm = findViewById(R.id.idClassificationBar);
 
         mClassifyInputHandler = new ClassifyInputHandler(this);
 
@@ -44,5 +47,9 @@ public class ClassificationActivity extends AppCompatActivity {
 
     public ArrayList<Double> getSelectedData() {
         return mSelectedData;
+    }
+
+    public AnyChartView getChartView() {
+        return mBarDiagramm;
     }
 }
