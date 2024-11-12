@@ -59,11 +59,11 @@ public class MainActivity extends AppCompatActivity {
         setUpAdapters();
     }
 
-    public void loadStatRows(){
+    public void loadStatRows() {
         mArrayList = mSaveLoadManager.loadStatRows();
     }
 
-    public void saveStatRows(){
+    public void saveStatRows() {
         mSaveLoadManager.saveStatRows(mArrayList);
     }
 
@@ -107,12 +107,10 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    private void setUpAdapters(){
+    private void setUpAdapters() {
         mAdapter = new Adapter(this, mArrayList, mIsEditMode);
         mListView.setAdapter(mAdapter);
     }
-
-
 
 
     private void changeTextVisibility(boolean visible) {
@@ -130,14 +128,14 @@ public class MainActivity extends AppCompatActivity {
         mBtnNewData.setEnabled(false);
         mBtnNewData.setBackgroundColor(Color.LTGRAY);
 
-        if(!mIsEditMode){
+        if (!mIsEditMode) {
             changeTextVisibility(false);
             mBtnNewData.setEnabled(true);
             mBtnNewData.setBackgroundColor(ContextCompat.getColor(this, R.color.statify_turquise));
         }
     }
 
-    public void changeNewDataMode(){
+    public void changeNewDataMode() {
         mIsNewDataMode = !mIsNewDataMode;
         mBtnNewData.setText(mIsNewDataMode ? "Cancel" : "New Data");
         mBtnEditData.setEnabled(false);
@@ -145,11 +143,11 @@ public class MainActivity extends AppCompatActivity {
 
         changeTextVisibility(mIsNewDataMode);
 
-        if(mIsNewDataMode){
+        if (mIsNewDataMode) {
             mEditText.setText("");
         }
 
-        if(!mIsNewDataMode){
+        if (!mIsNewDataMode) {
             mBtnEditData.setEnabled(true);
             mBtnEditData.setBackgroundColor(ContextCompat.getColor(this, R.color.statify_orange));
         }
@@ -171,7 +169,7 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    public void removeItemFromList(int position){
+    public void removeItemFromList(int position) {
         mArrayList.remove(position);
         mAdapter.notifyDataSetChanged();
         saveStatRows();
@@ -180,18 +178,6 @@ public class MainActivity extends AppCompatActivity {
     //region Getter
     public EditText getEditText() {
         return mEditText;
-    }
-
-    public Button getBtnNewData() {
-        return mBtnNewData;
-    }
-
-    public Button getBtnEditData() {
-        return mBtnEditData;
-    }
-
-    public ListView getListView() {
-        return mListView;
     }
 
     public ArrayList<ArrayList<Double>> getArrayList() {
@@ -205,16 +191,6 @@ public class MainActivity extends AppCompatActivity {
     public SaveLoadHandler getSaveLoadManager() {
         return mSaveLoadManager;
     }
-
-    public boolean isIsEditMode() {
-        return mIsEditMode;
-    }
-
-    public boolean isIsNewDataMode() {
-        return mIsNewDataMode;
-    }
-
     //endregion
-
-    }
+}
 
