@@ -1,5 +1,6 @@
 package app.dev.statify.Activities;
 
+//region Imports
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
@@ -7,8 +8,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import app.dev.statify.Handler.ClassifyInputHandler;
 import app.dev.statify.R;
 import com.anychart.AnyChartView;
-
 import java.util.ArrayList;
+//endregion
 
 public class ClassificationActivity extends AppCompatActivity {
 
@@ -28,7 +29,7 @@ public class ClassificationActivity extends AppCompatActivity {
 
         mSelectedData = (ArrayList<Double>) getIntent().getSerializableExtra("selected_data");
 
-        if(mSelectedData == null){
+        if (mSelectedData == null) {
             throw new IllegalArgumentException("Selected Data is missing");
         }
 
@@ -42,7 +43,7 @@ public class ClassificationActivity extends AppCompatActivity {
     }
 
 
-    // Getter
+    //region Getter
     public EditText getClassLimitInput() {
         return mClassLimitInput;
     }
@@ -55,7 +56,8 @@ public class ClassificationActivity extends AppCompatActivity {
         return mBarDiagramm;
     }
 
-    public void onBackClick(View v){
+    public void onBackClick(View v) {
         finish();
     }
+    //endregion
 }

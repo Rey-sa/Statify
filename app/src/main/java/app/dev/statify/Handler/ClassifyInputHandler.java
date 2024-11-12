@@ -1,4 +1,5 @@
 package app.dev.statify.Handler;
+//region Imports
 
 import android.view.KeyEvent;
 import android.view.View;
@@ -9,8 +10,10 @@ import com.anychart.AnyChartView;
 import com.anychart.chart.common.dataentry.DataEntry;
 import com.anychart.chart.common.dataentry.ValueDataEntry;
 import com.anychart.charts.Cartesian;
+import com.anychart.core.cartesian.series.Column;
 
 import java.util.ArrayList;
+//endregion
 
 public class ClassifyInputHandler {
 
@@ -94,11 +97,16 @@ public class ClassifyInputHandler {
             System.out.println("Hinzugefügter Eintrag: " + classRange + " = " + count);
 
             Cartesian cartesian = AnyChart.column();
-            cartesian.column(dataEntries);
+            Column column = cartesian.column(dataEntries);
+
+            column.tooltip()
+                    .format("Count: {%Value}");
 
             AnyChartView chartView = mActivity.getChartView();
             chartView.setChart(cartesian);
             chartView.setVisibility(AnyChartView.VISIBLE);
+
+
 
         }
     }
