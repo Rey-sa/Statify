@@ -1,10 +1,10 @@
-package app.dev.statify.Handler;
+package app.dev.statify.Service.Handler;
 //region Imports
 
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.EditText;
-import app.dev.statify.Activities.ClassificationActivity;
+import app.dev.statify.UI.Activities.ClassificationActivity;
 import com.anychart.AnyChart;
 import com.anychart.AnyChartView;
 import com.anychart.chart.common.dataentry.DataEntry;

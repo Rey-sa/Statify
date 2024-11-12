@@ -15,7 +15,7 @@
             tools:replace="android:icon, android:label">
 
         <activity
-                android:name=".Activities.MainActivity"
+                android:name=".UI.Activities.MainActivity"
                 android:exported="true"
                 android:theme="@style/Theme.Statify">
             <intent-filter>
@@ -25,14 +25,14 @@
             </intent-filter>
         </activity>
         <activity
-                android:name=".Activities.ResultActivity"
+                android:name=".UI.Activities.ResultActivity"
                 android:exported="false"/>
         <activity
-                android:name=".Activities.FrequenciesActivity"
+                android:name=".UI.Activities.FrequenciesActivity"
                 android:exported="false"/>
 
         <activity
-                android:name=".Activities.ClassificationActivity"
+                android:name=".UI.Activities.ClassificationActivity"
                 android:configChanges="orientation|screenSize"
                 android:exported="false"/>
     </application>

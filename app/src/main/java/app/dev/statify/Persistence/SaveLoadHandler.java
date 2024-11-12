@@ -1,11 +1,9 @@
-package app.dev.statify.Handler;
+package app.dev.statify.Persistence;
 //region Imports
-
 import android.content.Context;
 import android.content.SharedPreferences;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
-
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 //endregion
@@ -16,7 +14,6 @@ import java.util.ArrayList;
 public class SaveLoadHandler {
 
     private static SharedPreferences mSharedPreferences;
-    private final String PREFS_NAME = "StatRowPrefs";
 
     /**
      * Constructs a SaveLoaderHandler with given context
@@ -24,6 +21,7 @@ public class SaveLoadHandler {
      * @param context The context used to get the SharedPreferences
      */
     public SaveLoadHandler(Context context) {
+        final String PREFS_NAME = "StatRowPrefs";
         mSharedPreferences = context.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE);
     }
 

@@ -1,8 +1,8 @@
-package app.dev.statify.Handler;
+package app.dev.statify.Service.Handler;
 
 import android.view.KeyEvent;
 import android.view.View;
-import app.dev.statify.Activities.MainActivity;
+import app.dev.statify.UI.Activities.MainActivity;
 
 public class EditTextKeyHandler{
 

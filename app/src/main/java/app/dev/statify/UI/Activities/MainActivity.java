@@ -1,4 +1,4 @@
-package app.dev.statify.Activities;
+package app.dev.statify.UI.Activities;
 
 //region Imports
 
@@ -6,21 +6,14 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.ArrayAdapter;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.ListView;
+import android.widget.*;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
-import app.dev.statify.Handler.EditTextKeyHandler;
-import app.dev.statify.Handler.SaveLoadHandler;
-import app.dev.statify.Handler.SubmitHandler;
-import app.dev.statify.Listener.EditTextKeyListener;
-import app.dev.statify.Listener.OnClickListener;
-import app.dev.statify.Listener.OnItemLongClickListener;
+import app.dev.statify.Persistence.SaveLoadHandler;
 import app.dev.statify.R;
-import app.dev.statify.SetupItems.Adapter;
-
+import app.dev.statify.Service.Handler.EditTextKeyHandler;
+import app.dev.statify.Service.Handler.SubmitHandler;
+import app.dev.statify.UI.Adapter.Adapter;
 
 import java.util.ArrayList;
 //endregion
@@ -88,15 +81,10 @@ public class MainActivity extends AppCompatActivity {
 
     private void setUpListeners() {
 
-        OnClickListener listener = new OnClickListener(this);
-        OnItemLongClickListener longListener = new OnItemLongClickListener(this);
-        EditTextKeyListener keyListener = new EditTextKeyListener(mEditTextKeyHandler);
-
-        mBtnNewData.setOnClickListener(listener);
-        mBtnEditData.setOnClickListener(listener);
-        mEditText.setOnClickListener(listener);
-        mListView.setOnItemLongClickListener(longListener);
-        mEditText.setOnKeyListener(keyListener);
+        mEditText.setOnKeyListener((v, keyCode, event) -> mEditTextKeyHandler.handleKey(v, keyCode, event));
+        mEditText.setOnClickListener(v -> mSubmitHandler.handleSubmit(this.getEditText()));
+        mBtnNewData.setOnClickListener(v -> changeNewDataMode());
+        mBtnEditData.setOnClickListener(v -> changeEditMode());
 
         mListView.setOnItemClickListener((parent, view, position, id) -> {
             if (mIsEditMode) {
@@ -104,6 +92,11 @@ public class MainActivity extends AppCompatActivity {
             } else {
                 handleItemClick(position);
             }
+        });
+
+        mListView.setOnItemLongClickListener((parent, view, position, id) -> {
+            removeItemFromList(position);
+            return true;
         });
     }
 
@@ -171,6 +164,7 @@ public class MainActivity extends AppCompatActivity {
 
     public void removeItemFromList(int position) {
         mArrayList.remove(position);
+        Toast.makeText(this, "Dataset removed", Toast.LENGTH_SHORT).show();
         mAdapter.notifyDataSetChanged();
         saveStatRows();
     }

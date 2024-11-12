@@ -1,7 +1,7 @@
-package app.dev.statify.Handler;
+package app.dev.statify.Service.Handler;
 
 import android.widget.EditText;
-import app.dev.statify.Activities.MainActivity;
+import app.dev.statify.UI.Activities.MainActivity;
 
 import java.util.ArrayList;
 import java.util.Arrays;

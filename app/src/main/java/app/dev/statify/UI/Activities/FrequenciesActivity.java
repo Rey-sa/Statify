@@ -1,9 +1,9 @@
-package app.dev.statify.Activities;
+package app.dev.statify.UI.Activities;
 
 import android.os.Bundle;
 import android.view.View;
 import androidx.appcompat.app.AppCompatActivity;
-import app.dev.statify.Calculations;
+import app.dev.statify.Service.Calculations;
 import app.dev.statify.R;
 import com.anychart.AnyChart;
 import com.anychart.AnyChartView;

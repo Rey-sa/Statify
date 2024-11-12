@@ -1,4 +1,4 @@
-package app.dev.statify.Activities;
+package app.dev.statify.UI.Activities;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -6,9 +6,8 @@ import android.view.View;
 import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
-import app.dev.statify.Calculations;
-import app.dev.statify.Listener.OnClickListener;
 import app.dev.statify.R;
+import app.dev.statify.Service.Calculations;
 
 import java.util.ArrayList;
 import java.util.Locale;
@@ -36,14 +35,17 @@ public class ResultActivity extends AppCompatActivity {
         }
         setUpCardContent(selectedData);
 
-
         mCard21 = findViewById(R.id.idCard21);
-        OnClickListener listener = new OnClickListener(this);
-        mCard21.setOnClickListener(listener);
-
         mCard30 = findViewById(R.id.idCard30);
-        mCard30.setOnClickListener(listener);
+        setUpListeners();
+
     }
+
+    private void setUpListeners(){
+        mCard21.setOnClickListener(v -> handleCardClick());
+        mCard30.setOnClickListener(v -> goToClassify());
+    }
+
 
 
     private void setUpCardContent(ArrayList<Double> selectedData){

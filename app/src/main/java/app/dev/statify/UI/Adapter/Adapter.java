@@ -1,4 +1,4 @@
-package app.dev.statify.SetupItems;
+package app.dev.statify.UI.Adapter;
 
 import android.content.Context;
 import android.graphics.Color;
@@ -12,13 +12,11 @@ import java.util.ArrayList;
 
 public class Adapter extends ArrayAdapter<ArrayList<Double>> {
 
-    private Context mContext;
     private boolean mIsEditMode;
 
     public Adapter(Context context, ArrayList<ArrayList<Double>> arrList, boolean isEditMode) {
         super(context, android.R.layout.simple_list_item_1, arrList);
 
-        this.mContext = context;
         this.mIsEditMode = isEditMode;
     }
 

@@ -1,11 +1,11 @@
-package app.dev.statify.Activities;
+package app.dev.statify.UI.Activities;
 
 //region Imports
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
 import androidx.appcompat.app.AppCompatActivity;
-import app.dev.statify.Handler.ClassifyInputHandler;
+import app.dev.statify.Service.Handler.ClassifyInputHandler;
 import app.dev.statify.R;
 import com.anychart.AnyChartView;
 import java.util.ArrayList;
