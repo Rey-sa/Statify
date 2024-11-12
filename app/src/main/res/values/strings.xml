@@ -18,6 +18,6 @@
     <string name="new_dataset">New Dataset</string>
     <string name="classify">Classify</string>
     <string name="enter_classlimits_seperated_by_space">Enter Classlimits seperated by space</string>
-    <string name="enter_classlimits_serperated_by_comma">Enter classlimits serperated by comma</string>
+    <string name="enter_classlimits_serperated_by_comma">Enter classlimits serperated by space</string>
 
 </resources>

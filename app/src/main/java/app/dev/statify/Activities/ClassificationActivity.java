@@ -42,6 +42,7 @@ public class ClassificationActivity extends AppCompatActivity {
     }
 
 
+    // Getter
     public EditText getClassLimitInput() {
         return mClassLimitInput;
     }

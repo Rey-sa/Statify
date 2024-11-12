@@ -9,6 +9,7 @@ import com.anychart.AnyChartView;
 import com.anychart.chart.common.dataentry.DataEntry;
 import com.anychart.chart.common.dataentry.ValueDataEntry;
 import com.anychart.charts.Cartesian;
+
 import java.util.ArrayList;
 
 public class ClassifyInputHandler {
@@ -47,7 +48,7 @@ public class ClassifyInputHandler {
             ArrayList<Integer> classificationResults = classifyData(mActivity.getSelectedData(), classLimits);
 
             // Set EditText to non visible
-            hideClassLimitInputAndShowChart(classificationResults);
+            hideClassLimitInputAndShowChart(classificationResults, classLimits);
 
             return true;
         }
@@ -56,10 +57,10 @@ public class ClassifyInputHandler {
     }
 
 
-    private ArrayList<Integer> classifyData(ArrayList<Double> data, ArrayList<Double> classLimits) {
+    private ArrayList<Integer> classifyData(ArrayList<Double> selectedData, ArrayList<Double> classLimits) {
         ArrayList<Integer> classifications = new ArrayList<>();
 
-        for (Double value : data) {
+        for (Double value : selectedData) {
             int classIndex = -1;
             for (int i = 0; i < classLimits.size() - 1; i++) {
                 if (value >= classLimits.get(i) && value < classLimits.get(i + 1)) {
@@ -74,26 +75,31 @@ public class ClassifyInputHandler {
     }
 
 
-    private void hideClassLimitInputAndShowChart(ArrayList<Integer> classificationResults) {
+    private void hideClassLimitInputAndShowChart(ArrayList<Integer> classificationResults, ArrayList<Double> classLimits) {
 
         mActivity.getClassLimitInput().setVisibility(EditText.GONE);
 
-
         ArrayList<DataEntry> dataEntries = new ArrayList<>();
-        for (int i = 0; i < classificationResults.size(); i++) {
-            Integer classIndex = classificationResults.get(i);
-            dataEntries.add(new ValueDataEntry("Class " + i, classIndex));
+
+        for (int i = 0; i < classLimits.size() - 1; i++) {
+            String classRange = classLimits.get(i) + " - " + classLimits.get(i + 1);
+
+            int count = 0;
+            for (Integer classIndex : classificationResults) {
+                if (classIndex == i) {
+                    count++;
+                }
+            }
+            dataEntries.add(new ValueDataEntry(classRange, count));
+            System.out.println("Hinzugefügter Eintrag: " + classRange + " = " + count);
+
+            Cartesian cartesian = AnyChart.column();
+            cartesian.column(dataEntries);
+
+            AnyChartView chartView = mActivity.getChartView();
+            chartView.setChart(cartesian);
+            chartView.setVisibility(AnyChartView.VISIBLE);
+
         }
-
-
-        Cartesian cartesian = AnyChart.column();
-        cartesian.column(dataEntries);
-
-
-        AnyChartView chartView = mActivity.getChartView();
-        chartView.setChart(cartesian);
-
-
-        chartView.setVisibility(AnyChartView.VISIBLE);
     }
 }
