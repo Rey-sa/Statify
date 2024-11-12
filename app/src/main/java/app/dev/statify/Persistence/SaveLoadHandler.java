@@ -30,7 +30,7 @@ public class SaveLoadHandler {
      *
      * @param mArrayList The ArrayList of statistical rows datasets to save
      */
-    public static void saveStatRows(ArrayList<ArrayList<Double>> mArrayList) {
+    public void saveStatRows(ArrayList<ArrayList<Double>> mArrayList) {
         SharedPreferences.Editor editor = mSharedPreferences.edit();
         Gson gson = new Gson();
 
@@ -50,7 +50,7 @@ public class SaveLoadHandler {
      *
      * @return An ArrayList of statistical rows, or an empty ArrayList if no data is found
      */
-    public static ArrayList<ArrayList<Double>> loadStatRows() {
+    public ArrayList<ArrayList<Double>> loadStatRows() {
         String json = mSharedPreferences.getString("arrayList_data", null);
 
         if (json != null) {

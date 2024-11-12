@@ -20,7 +20,6 @@ import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
 
-
     //region Declaration instance variables
     private EditText mEditText;
     private Button mBtnNewData, mBtnEditData;
@@ -37,6 +36,11 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        mSaveLoadManager = new SaveLoadHandler(this);
+        mSubmitHandler = new SubmitHandler(this);
+        mEditTextKeyHandler = new EditTextKeyHandler(this, mSubmitHandler);
+        mArrayList = mSaveLoadManager.loadStatRows();
+
         super.onCreate(savedInstanceState);
         if (getSupportActionBar() != null) {
             getSupportActionBar().hide();
@@ -44,20 +48,8 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.main_layout);
 
         initializeViews();
-        mSaveLoadManager = new SaveLoadHandler(this);
-        mSubmitHandler = new SubmitHandler(this);
-        mEditTextKeyHandler = new EditTextKeyHandler(this, mSubmitHandler);
         setUpListeners();
-        loadStatRows();
         setUpAdapters();
-    }
-
-    public void loadStatRows() {
-        mArrayList = mSaveLoadManager.loadStatRows();
-    }
-
-    public void saveStatRows() {
-        mSaveLoadManager.saveStatRows(mArrayList);
     }
 
     public void handleItemClick(int position) {
@@ -162,11 +154,11 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    public void removeItemFromList(int position) {
+    private void removeItemFromList(int position) {
         mArrayList.remove(position);
         Toast.makeText(this, "Dataset removed", Toast.LENGTH_SHORT).show();
         mAdapter.notifyDataSetChanged();
-        saveStatRows();
+        mSaveLoadManager.saveStatRows(mArrayList);
     }
 
     //region Getter
@@ -182,9 +174,6 @@ public class MainActivity extends AppCompatActivity {
         return mAdapter;
     }
 
-    public SaveLoadHandler getSaveLoadManager() {
-        return mSaveLoadManager;
-    }
     //endregion
 }
 

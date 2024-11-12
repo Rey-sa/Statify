@@ -1,6 +1,7 @@
 package app.dev.statify.Service.Handler;
 
 import android.widget.EditText;
+import app.dev.statify.Persistence.SaveLoadHandler;
 import app.dev.statify.UI.Activities.MainActivity;
 
 import java.util.ArrayList;
@@ -8,7 +9,7 @@ import java.util.Arrays;
 
 public class SubmitHandler {
 
-    private MainActivity mActivity;
+    private final MainActivity mActivity;
 
     public SubmitHandler(MainActivity activity){
         this.mActivity = activity;
@@ -37,7 +38,9 @@ public class SubmitHandler {
                 mActivity.getArrayList().add(tempArrayList);
                 mActivity.getAdapter().notifyDataSetChanged();
                 mActivity.getEditText().setText("");
-                mActivity.saveStatRows();
+                SaveLoadHandler mSaveLoadHandler = new SaveLoadHandler(mActivity);
+                mSaveLoadHandler.saveStatRows(mActivity.getArrayList());
+
             }
         }
     }
