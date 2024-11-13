@@ -9,15 +9,14 @@ import androidx.core.content.ContextCompat;
 import app.dev.statify.R;
 import app.dev.statify.UI.Activities.MainActivity;
 
-public class ModeHandler {
-    private MainActivity mActivity;
-    private boolean mIsNewDataMode = false;
-    private boolean mIsEditMode = false;
+import java.util.ArrayList;
 
-    private Button mBtnNewData;
-    private Button mBtnEditData;
-    private EditText mEditText;
-    private ArrayAdapter mAdapter;
+public class ModeHandler {
+    private final MainActivity mActivity;
+    private boolean mIsNewDataMode = false, mIsEditMode = false;
+    private final Button mBtnNewData, mBtnEditData;
+    private final EditText mEditText;
+    private ArrayAdapter<ArrayList<Double>> mAdapter;
 
     public ModeHandler(MainActivity activity){
         this.mActivity = activity;
@@ -26,7 +25,7 @@ public class ModeHandler {
         this.mEditText = activity.findViewById(R.id.idEditText);
     }
 
-    public void setAdapter(ArrayAdapter adapter){
+    public void setAdapter(ArrayAdapter<ArrayList<Double>> adapter){
         this.mAdapter = adapter;
     }
 

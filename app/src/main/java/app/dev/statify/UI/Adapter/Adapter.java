@@ -20,7 +20,7 @@ import java.util.ArrayList;
  */
 public class Adapter extends ArrayAdapter<ArrayList<Double>> {
 
-    private ModeHandler mModehandler;
+    private final ModeHandler mModehandler;
 
     /**
      * Constructs new Adapter.

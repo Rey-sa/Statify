@@ -4,7 +4,6 @@ package app.dev.statify.UI.Activities;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.*;
 import androidx.appcompat.app.AppCompatActivity;
@@ -40,7 +39,7 @@ public class MainActivity extends AppCompatActivity {
 
 
     /**
-     * Initializes the views, sets up listeners and loads any previously saved datasets, when activity is being created.
+     * Initializes the views, sets up listeners, sets up handlers and loads any previously saved datasets, when activity is being created.
      *
      * @param savedInstanceState Bundle containing the activities previously saved state.
      */
@@ -55,8 +54,6 @@ public class MainActivity extends AppCompatActivity {
         initializeViews();
 
         mModeHandler = new ModeHandler(this);
-        Log.d("MainActivity", "ModeHandler: " + (mModeHandler == null ? "null" : "initialized"));
-
         mSaveLoadManager = new SaveLoadHandler(this);
         mArrayList = mSaveLoadManager.loadStatRows();
 
@@ -66,8 +63,6 @@ public class MainActivity extends AppCompatActivity {
         mEditTextKeyHandler = new EditTextKeyHandler(this, mSubmitHandler, mModeHandler);
 
         setUpListeners();
-
-
     }
 
     /**
@@ -192,8 +187,6 @@ public class MainActivity extends AppCompatActivity {
     public ArrayAdapter<ArrayList<Double>> getAdapter() {
         return mAdapter;
     }
-
-
     //endregion
 }
 
