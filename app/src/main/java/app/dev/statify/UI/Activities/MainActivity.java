@@ -3,15 +3,15 @@ package app.dev.statify.UI.Activities;
 //region Imports
 
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.*;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.content.ContextCompat;
 import app.dev.statify.Persistence.SaveLoadHandler;
 import app.dev.statify.R;
 import app.dev.statify.Service.Handler.EditTextKeyHandler;
+import app.dev.statify.Service.Handler.ModeHandler;
 import app.dev.statify.Service.Handler.SubmitHandler;
 import app.dev.statify.UI.Adapter.Adapter;
 
@@ -33,9 +33,8 @@ public class MainActivity extends AppCompatActivity {
     private ArrayList<ArrayList<Double>> mArrayList;
     private ArrayAdapter<ArrayList<Double>> mAdapter;
     private SaveLoadHandler mSaveLoadManager;
-    private boolean mIsEditMode = false;
-    private boolean mIsNewDataMode = false;
     private SubmitHandler mSubmitHandler;
+    private ModeHandler mModeHandler;
     private EditTextKeyHandler mEditTextKeyHandler;
     //endregion
 
@@ -47,11 +46,6 @@ public class MainActivity extends AppCompatActivity {
      */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        mSaveLoadManager = new SaveLoadHandler(this);
-        mSubmitHandler = new SubmitHandler(this);
-        mEditTextKeyHandler = new EditTextKeyHandler(this, mSubmitHandler);
-        mArrayList = mSaveLoadManager.loadStatRows();
-
         super.onCreate(savedInstanceState);
         if (getSupportActionBar() != null) {
             getSupportActionBar().hide();
@@ -59,8 +53,21 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.main_layout);
 
         initializeViews();
-        setUpListeners();
+
+        mModeHandler = new ModeHandler(this);
+        Log.d("MainActivity", "ModeHandler: " + (mModeHandler == null ? "null" : "initialized"));
+
+        mSaveLoadManager = new SaveLoadHandler(this);
+        mArrayList = mSaveLoadManager.loadStatRows();
+
         setUpAdapters();
+
+        mSubmitHandler = new SubmitHandler(this);
+        mEditTextKeyHandler = new EditTextKeyHandler(this, mSubmitHandler, mModeHandler);
+
+        setUpListeners();
+
+
     }
 
     /**
@@ -97,11 +104,11 @@ public class MainActivity extends AppCompatActivity {
 
         mEditText.setOnKeyListener((v, keyCode, event) -> mEditTextKeyHandler.handleKey(v, keyCode, event));
         mEditText.setOnClickListener(v -> mSubmitHandler.handleSubmit(this.getEditText()));
-        mBtnNewData.setOnClickListener(v -> changeNewDataMode());
-        mBtnEditData.setOnClickListener(v -> changeEditMode());
+        mBtnNewData.setOnClickListener(v -> mModeHandler.changeNewDataMode());
+        mBtnEditData.setOnClickListener(v -> mModeHandler.changeEditMode());
 
         mListView.setOnItemClickListener((parent, view, position, id) -> {
-            if (mIsEditMode) {
+            if (mModeHandler.getIsEditMode()) {
                 editItem(position);
             } else {
                 handleItemClick(position);
@@ -118,62 +125,9 @@ public class MainActivity extends AppCompatActivity {
      * Sets up the adapter for the ListView by linking the data to the UI.
      */
     private void setUpAdapters() {
-        mAdapter = new Adapter(this, mArrayList, mIsEditMode);
+        mAdapter = new Adapter(this, mArrayList, mModeHandler);
+        mModeHandler.setAdapter(mAdapter);
         mListView.setAdapter(mAdapter);
-    }
-
-    /**
-     * Changes the visibility of the EditText. It will be shown and focused, when visibility is true.
-     *
-     * @param visible Boolean indicating whether to show or to hide the EditText.
-     */
-    private void changeTextVisibility(boolean visible) {
-        mEditText.setVisibility(visible ? View.VISIBLE : View.GONE);
-        if (visible) {
-            mEditText.requestFocus();
-        }
-    }
-
-    /**
-     * Toggles edit mode state: Changes UI to indicate EditMode. Changes button text, disables "New Data" button and refreshes the adapter.
-     * Leaving EditMode sets "New Data" button back to enabled and hides editing indicators.
-     */
-    public void changeEditMode() {
-        mIsEditMode = !mIsEditMode;
-        mBtnEditData.setText(mIsEditMode ? "Done" : "Edit");
-        mBtnNewData.setEnabled(false);
-        mBtnNewData.setBackgroundColor(Color.LTGRAY);
-
-        if (!mIsEditMode) {
-            changeTextVisibility(false);
-            mBtnNewData.setEnabled(true);
-            mBtnNewData.setBackgroundColor(ContextCompat.getColor(this, R.color.statify_turquise));
-        }
-        mAdapter.notifyDataSetChanged();
-    }
-
-    /**
-     * Toggles new Data mode state: Changes UI to indicate NewDataMode. Changes button text, disables "Edit" button and refreshes the adapter.
-     * Leaving NewDataMode sets "Edit" button back to enabled and resets the editText.
-     */
-    public void changeNewDataMode() {
-        mIsNewDataMode = !mIsNewDataMode;
-        mBtnNewData.setText(mIsNewDataMode ? "Cancel" : "New Data");
-        mBtnEditData.setEnabled(false);
-        mBtnEditData.setBackgroundColor(Color.LTGRAY);
-
-        changeTextVisibility(mIsNewDataMode);
-
-        if (mIsNewDataMode) {
-            mEditText.setText("");
-        }
-
-        if (!mIsNewDataMode) {
-            mBtnEditData.setEnabled(true);
-            mBtnEditData.setBackgroundColor(ContextCompat.getColor(this, R.color.statify_orange));
-        }
-
-        mAdapter.notifyDataSetChanged();
     }
 
     /**
@@ -238,6 +192,7 @@ public class MainActivity extends AppCompatActivity {
     public ArrayAdapter<ArrayList<Double>> getAdapter() {
         return mAdapter;
     }
+
 
     //endregion
 }

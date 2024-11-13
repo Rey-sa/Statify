@@ -15,22 +15,22 @@ public class EditTextKeyHandler{
 
     private MainActivity mActivity;
     private SubmitHandler mSubmitHandler;
-    private boolean mIsNewDataMode;
-    private boolean mIsEditMode;
+    private ModeHandler mModeHandler;
 
     /**
      * Constructs {@link EditTextKeyHandler}.
      * @param activity {@link MainActivity} instance for interaction.
      * @param handler {@link SubmitHandler} for handling submissions.
      */
-    public EditTextKeyHandler(MainActivity activity, SubmitHandler handler){
+    public EditTextKeyHandler(MainActivity activity, SubmitHandler handler, ModeHandler modeHandler){
         this.mActivity = activity;
         this.mSubmitHandler = handler;
+        this.mModeHandler = modeHandler;
     }
 
     /**
      * Handles key events for {@link EditText}.
-     * Triggers apporpriate action:
+     * Triggers appropriate action:
      * 1. Submitting Input via {@link SubmitHandler}.
      * 2. Toggling modes if necessary.
      * @param v {@link View} that triggered the event.
@@ -41,11 +41,12 @@ public class EditTextKeyHandler{
     public boolean handleKey(View v, int keyCode, KeyEvent event){
         if ((event.getAction() == KeyEvent.ACTION_DOWN) && (keyCode == KeyEvent.KEYCODE_ENTER)) {
             mSubmitHandler.handleSubmit(mActivity.getEditText());
-            if(mIsNewDataMode){
-                mActivity.changeNewDataMode();
+            mModeHandler = new ModeHandler(mActivity);
+            if(mModeHandler.getIsNewDataMode()){
+                mModeHandler.changeNewDataMode();
             }
-            if(mIsEditMode){
-                mActivity.changeEditMode();
+            if(mModeHandler.getIsEditMode()){
+                mModeHandler.changeEditMode();
             }
 
             return true;

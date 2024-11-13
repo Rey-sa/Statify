@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import androidx.core.content.ContextCompat;
 import app.dev.statify.R;
+import app.dev.statify.Service.Handler.ModeHandler;
 
 import java.util.ArrayList;
 //endregion
@@ -19,19 +20,19 @@ import java.util.ArrayList;
  */
 public class Adapter extends ArrayAdapter<ArrayList<Double>> {
 
-    private boolean mIsEditMode;
+    private ModeHandler mModehandler;
 
     /**
      * Constructs new Adapter.
      *
      * @param context    Activity in which the {@code Adapter} ist being used.
      * @param arrList    List of data to be displayed.
-     * @param isEditMode Determines if the list is in "Edit Mode". When in EditMode listItems are highlighted with background color.
+     * @param modeHandler xxxx
      */
-    public Adapter(Context context, ArrayList<ArrayList<Double>> arrList, boolean isEditMode) {
+    public Adapter(Context context, ArrayList<ArrayList<Double>> arrList, ModeHandler modeHandler) {
         super(context, android.R.layout.simple_list_item_1, arrList);
 
-        this.mIsEditMode = isEditMode;
+        this.mModehandler = modeHandler;
     }
 
     /**
@@ -47,7 +48,7 @@ public class Adapter extends ArrayAdapter<ArrayList<Double>> {
     public View getView(int position, View convertView, ViewGroup parent) {
         View view = super.getView(position, convertView, parent);
 
-        if (mIsEditMode) {
+        if (mModehandler !=null && mModehandler.getIsEditMode()) {
             view.setBackgroundColor(ContextCompat.getColor(getContext(), R.color.statify_light_blue));
         } else {
             view.setBackgroundColor(Color.TRANSPARENT);
