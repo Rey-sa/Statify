@@ -3,19 +3,34 @@ package app.dev.statify.Service.Handler;
 import android.widget.EditText;
 import app.dev.statify.Persistence.SaveLoadHandler;
 import app.dev.statify.UI.Activities.MainActivity;
-
 import java.util.ArrayList;
 import java.util.Arrays;
 
+/**
+ * Handles onKeyPressed events (Enter).
+ */
 public class SubmitHandler {
 
     private final MainActivity mActivity;
 
-    public SubmitHandler(MainActivity activity){
+    /**
+     * Constructs {@code SubmitHandler}.
+     *
+     * @param activity {@link MainActivity} that is passed to {@code SubmitHandler}.
+     */
+    public SubmitHandler(MainActivity activity) {
         this.mActivity = activity;
     }
 
-    public void handleSubmit(EditText editText){
+    /**
+     * Handles submits from {@link EditText}.
+     * Retrieving the text from {@link EditText}, splitting into space-separated values and parsing value as Double.
+     * Valid Doubles are added to the list of statistical rows.
+     * Updating UI and clear {@link EditText}.
+     *
+     * @param editText contains the input data to be processed.
+     */
+    public void handleSubmit(EditText editText) {
         String s = editText.getText().toString().trim();
 
         if (!s.isEmpty()) {
@@ -31,7 +46,6 @@ public class SubmitHandler {
                 } catch (NumberFormatException e) {
                     e.printStackTrace();
                 }
-
             }
 
             if (!tempArrayList.isEmpty()) {
@@ -40,7 +54,6 @@ public class SubmitHandler {
                 mActivity.getEditText().setText("");
                 SaveLoadHandler mSaveLoadHandler = new SaveLoadHandler(mActivity);
                 mSaveLoadHandler.saveStatRows(mActivity.getArrayList());
-
             }
         }
     }

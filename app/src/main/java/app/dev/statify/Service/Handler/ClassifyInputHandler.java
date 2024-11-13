@@ -15,14 +15,34 @@ import com.anychart.core.cartesian.series.Column;
 import java.util.ArrayList;
 //endregion
 
+/**
+ * Handles key events for classificaton related input from {@link ClassificationActivity}.
+ * Listens for key events on {@link EditText} and classifies when Enter is pressed.
+ */
 public class ClassifyInputHandler {
 
-    private ClassificationActivity mActivity;
+    private final ClassificationActivity mActivity;
 
+    /**
+     * Constructs {@link ClassifyInputHandler}.
+     *
+     * @param activity {@link ClassificationActivity} instance to interact with.
+     */
     public ClassifyInputHandler(ClassificationActivity activity) {
         this.mActivity = activity;
     }
 
+    /**
+     * Handles key events (enter) for class limit input.
+     * Validates and parses the class limits, calls classifyData and hands over parsed classLimits.
+     * Updates UI by hiding input field and displaying Barchart.
+     *
+     * @param v       {@link EditText} that triggered the event in {@link ClassificationActivity}.
+     * @param keyCode key code of the pressed key.
+     * @param event   {@link KeyEvent} representing the key press event.
+     * @return {@code true} if key event was handled successfully otherwise {@code false}.
+     * @throws IllegalArgumentException if class limits are missing or invalid
+     */
     public boolean handleKey(View v, int keyCode, KeyEvent event) {
         if ((event.getAction() == KeyEvent.ACTION_DOWN) && (keyCode == KeyEvent.KEYCODE_ENTER)) {
 
@@ -55,11 +75,16 @@ public class ClassifyInputHandler {
 
             return true;
         }
-
         return false;
     }
 
-
+    /**
+     * Classifies selected data based on parsed class limits.
+     *
+     * @param selectedData ArrayList of Double containing values from chosen statistical row.
+     * @param classLimits  parsed class limits (entered previously by user)
+     * @return ArrayList of Integer containing counted elements by class.
+     */
     private ArrayList<Integer> classifyData(ArrayList<Double> selectedData, ArrayList<Double> classLimits) {
         ArrayList<Integer> classifications = new ArrayList<>();
 
@@ -73,10 +98,15 @@ public class ClassifyInputHandler {
             }
             classifications.add(classIndex);
         }
-
         return classifications;
     }
 
+    /**
+     * Hides {@link EditText} in {@link ClassificationActivity} and displays {@link AnyChartView} with results.
+     *
+     * @param classificationResults ArrayList of Integer containing classification results. Each entry corresponds to a class index.
+     * @param classLimits           ArrayList of Double representing class limits.
+     */
 
     private void hideClassLimitInputAndShowChart(ArrayList<Integer> classificationResults, ArrayList<Double> classLimits) {
 
@@ -94,20 +124,15 @@ public class ClassifyInputHandler {
                 }
             }
             dataEntries.add(new ValueDataEntry(classRange, count));
-            System.out.println("Hinzugefügter Eintrag: " + classRange + " = " + count);
 
             Cartesian cartesian = AnyChart.column();
             Column column = cartesian.column(dataEntries);
 
-            column.tooltip()
-                    .format("Count: {%Value}");
+            column.tooltip().format("Count: {%Value}");
 
             AnyChartView chartView = mActivity.getChartView();
             chartView.setChart(cartesian);
             chartView.setVisibility(AnyChartView.VISIBLE);
-
-
-
         }
     }
 }

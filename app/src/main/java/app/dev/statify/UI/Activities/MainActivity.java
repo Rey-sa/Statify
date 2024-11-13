@@ -41,7 +41,8 @@ public class MainActivity extends AppCompatActivity {
 
 
     /**
-     * Inizializes the views, sets up listeners and loads any previously saved datasets, when activity is being created.
+     * Initializes the views, sets up listeners and loads any previously saved datasets, when activity is being created.
+     *
      * @param savedInstanceState Bundle containing the activities previously saved state.
      */
     @Override
@@ -64,6 +65,7 @@ public class MainActivity extends AppCompatActivity {
 
     /**
      * Handles the click event of an item wihtin the list. Either opens the clicked item in "edit" mode or navigates to "ResultActivity".
+     *
      * @param position Position of the item that was clicked (selected Item).
      */
     public void handleItemClick(int position) {
@@ -74,7 +76,6 @@ public class MainActivity extends AppCompatActivity {
         intent.putExtra("selected_data", selectedData);
         startActivity(intent);
         mAdapter.notifyDataSetChanged();
-
     }
 
     /**
@@ -193,13 +194,13 @@ public class MainActivity extends AppCompatActivity {
         mEditText.requestFocus();
         mArrayList.remove(position);
         mAdapter.notifyDataSetChanged();
-
     }
 
 
     /**
      * Removes the selected dataset from the list and sends a confirmation toast.
      * Adapter is notified of the change.
+     *
      * @param position Position of the selected listItem which is to be deleted.
      */
     private void removeItemFromList(int position) {
@@ -213,6 +214,7 @@ public class MainActivity extends AppCompatActivity {
 
     /**
      * Gets the current EditText.
+     *
      * @return The EditText (EditText)
      */
     public EditText getEditText() {

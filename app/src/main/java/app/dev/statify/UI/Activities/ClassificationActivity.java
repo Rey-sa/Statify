@@ -11,6 +11,10 @@ import com.anychart.AnyChartView;
 import java.util.ArrayList;
 //endregion
 
+/**
+ *  Activity for managing and displaying Classification of selected datasets (statistical rows).
+ *  Allows the user to add class limits and displays classified data in bar chart.
+ */
 public class ClassificationActivity extends AppCompatActivity {
 
     private ArrayList<Double> mSelectedData;
@@ -18,6 +22,10 @@ public class ClassificationActivity extends AppCompatActivity {
     private ClassifyInputHandler mClassifyInputHandler;
     private AnyChartView mBarDiagramm;
 
+    /**
+     * Initializes the views, sets up listener and loads any previously selected dataset, when activity is being created.
+     * @param savedInstanceState Bundle containing the activities previously saved state.
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -42,22 +50,41 @@ public class ClassificationActivity extends AppCompatActivity {
 
     }
 
+    /**
+     * Handles back button click. Triggered when user clicks the "arrow button".
+     * Finishes current activity and returns back to the previous screen.
+     *
+     * @param v View that was clicke (arrow button).
+     */
+    public void onBackClick(View v) {
+        finish();
+    }
 
     //region Getter
+
+    /**
+     * Gets the current ClassLimitInput.
+     * @return ClassLimitInput (EditText)
+     */
     public EditText getClassLimitInput() {
         return mClassLimitInput;
     }
 
+    /**
+     * Gets current selectedData.
+     *
+     * @return a list of selectedData (ArrayList of Double).
+     */
     public ArrayList<Double> getSelectedData() {
         return mSelectedData;
     }
 
+    /**
+     * Gets current ChartView
+     * @return BarDiagramm
+     */
     public AnyChartView getChartView() {
         return mBarDiagramm;
-    }
-
-    public void onBackClick(View v) {
-        finish();
     }
     //endregion
 }
