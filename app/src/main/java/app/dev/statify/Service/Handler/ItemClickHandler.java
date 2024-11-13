@@ -1,10 +1,11 @@
 package app.dev.statify.Service.Handler;
 
 //region Imports
-import android.content.Context;
+
 import android.content.Intent;
-import android.widget.ArrayAdapter;
+import app.dev.statify.UI.Activities.MainActivity;
 import app.dev.statify.UI.Activities.ResultActivity;
+
 import java.util.ArrayList;
 //endregion
 
@@ -13,22 +14,16 @@ import java.util.ArrayList;
  */
 public class ItemClickHandler {
 
-    private final Context mContext;
-    private final ArrayList<ArrayList<Double>> mArrayList;
-    private final ArrayAdapter<ArrayList<Double>> mAdapter;
+    private final MainActivity mMainActivity;
 
     /**
      * Constructs {@link ItemClickHandler}. Initializes necessary params for handling
      * item click behavior within ListView in MainActivity.
      *
-     * @param context Context of Activity where the handler is used (MainActivity).
-     * @param arrayList containing the data that is displayed in ListView in MainActivity.
-     * @param adapter associated with ListView in MainActivity.
+     * @param activity The MainActivity instance where the handler ist used.
      */
-    public ItemClickHandler(Context context, ArrayList<ArrayList<Double>> arrayList, ArrayAdapter<ArrayList<Double>> adapter){
-        this.mContext = context;
-        this.mArrayList = arrayList;
-        this.mAdapter = adapter;
+    public ItemClickHandler(MainActivity activity){
+        this.mMainActivity = activity;
     }
 
     /**
@@ -36,12 +31,12 @@ public class ItemClickHandler {
      * @param position Position of the selected Item within listView in MainActivity.
      */
     public void handleItemClick(int position){
-        ArrayList<Double> selectedData = mArrayList.get(position);
+        ArrayList<Double> selectedData = mMainActivity.getArrayList().get(position);
 
-        Intent intent = new Intent(mContext, ResultActivity.class);
+        Intent intent = new Intent(mMainActivity, ResultActivity.class);
         intent.putExtra("selected_data", selectedData);
 
-        mContext.startActivity(intent);
-        mAdapter.notifyDataSetChanged();
+        mMainActivity.startActivity(intent);
+        mMainActivity.getAdapter().notifyDataSetChanged();
     }
 }

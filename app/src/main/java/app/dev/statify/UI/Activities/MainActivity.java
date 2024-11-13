@@ -59,7 +59,7 @@ public class MainActivity extends AppCompatActivity {
 
         mSubmitHandler = new SubmitHandler(this);
         mEditTextKeyHandler = new EditTextKeyHandler(this, mSubmitHandler, mModeHandler);
-        mItemClickHandler = new ItemClickHandler(this, mArrayList, mAdapter);
+        mItemClickHandler = new ItemClickHandler(this);
         mEditItemHandler = new EditItemHandler(this);
 
         setUpListeners();
