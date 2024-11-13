@@ -133,11 +133,13 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    /**
+     * Toggles edit mode state: Changes UI to indicate EditMode. Changes button text, disables "New Data" button and refreshes the adapter.
+     * Leaving EditMode sets "New Data" button back to enabled and hides editing indicators.
+     */
     public void changeEditMode() {
         mIsEditMode = !mIsEditMode;
         mBtnEditData.setText(mIsEditMode ? "Done" : "Edit");
-        mAdapter.notifyDataSetChanged();
-
         mBtnNewData.setEnabled(false);
         mBtnNewData.setBackgroundColor(Color.LTGRAY);
 
@@ -146,8 +148,13 @@ public class MainActivity extends AppCompatActivity {
             mBtnNewData.setEnabled(true);
             mBtnNewData.setBackgroundColor(ContextCompat.getColor(this, R.color.statify_turquise));
         }
+        mAdapter.notifyDataSetChanged();
     }
 
+    /**
+     * Toggles new Data mode state: Changes UI to indicate NewDataMode. Changes button text, disables "Edit" button and refreshes the adapter.
+     * Leaving NewDataMode sets "Edit" button back to enabled and resets the editText.
+     */
     public void changeNewDataMode() {
         mIsNewDataMode = !mIsNewDataMode;
         mBtnNewData.setText(mIsNewDataMode ? "Cancel" : "New Data");
@@ -168,6 +175,13 @@ public class MainActivity extends AppCompatActivity {
         mAdapter.notifyDataSetChanged();
     }
 
+    /**
+     * Edits the selected dataset at the specified position of the list.
+     * Dataset is converted into a string and displayed in the EditText view, allowing the user to change/remove values.
+     * Once the dataset is displayed, it is removed from the original list and the adapter is notified of the change.
+     *
+     * @param position Position of the selected listItem which is to be edited.
+     */
     private void editItem(int position) {
         ArrayList<Double> item = mArrayList.get(position);
         StringBuilder sb = new StringBuilder();
@@ -182,6 +196,12 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+
+    /**
+     * Removes the selected dataset from the list and sends a confirmation toast.
+     * Adapter is notified of the change.
+     * @param position Position of the selected listItem which is to be deleted.
+     */
     private void removeItemFromList(int position) {
         mArrayList.remove(position);
         Toast.makeText(this, "Dataset removed", Toast.LENGTH_SHORT).show();
@@ -190,14 +210,29 @@ public class MainActivity extends AppCompatActivity {
     }
 
     //region Getter
+
+    /**
+     * Gets the current EditText.
+     * @return The EditText (EditText)
+     */
     public EditText getEditText() {
         return mEditText;
     }
 
+    /**
+     * Gets the current ArrayList.
+     *
+     * @return The list of datasets (ArrayList of ArrayList of Double)
+     */
     public ArrayList<ArrayList<Double>> getArrayList() {
         return mArrayList;
     }
 
+    /**
+     * Gets the current ArrayAdapter.
+     *
+     * @return The Array of adapters (ArrayAdapter of ArrayList of Double)
+     */
     public ArrayAdapter<ArrayList<Double>> getAdapter() {
         return mAdapter;
     }
