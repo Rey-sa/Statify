@@ -3,15 +3,11 @@ package app.dev.statify.UI.Activities;
 //region Imports
 
 import android.os.Bundle;
-import android.view.View;
 import android.widget.*;
 import androidx.appcompat.app.AppCompatActivity;
 import app.dev.statify.Persistence.SaveLoadHandler;
 import app.dev.statify.R;
-import app.dev.statify.Service.Handler.EditTextKeyHandler;
-import app.dev.statify.Service.Handler.ItemClickHandler;
-import app.dev.statify.Service.Handler.ModeHandler;
-import app.dev.statify.Service.Handler.SubmitHandler;
+import app.dev.statify.Service.Handler.*;
 import app.dev.statify.UI.Adapter.Adapter;
 
 import java.util.ArrayList;
@@ -36,6 +32,7 @@ public class MainActivity extends AppCompatActivity {
     private ModeHandler mModeHandler;
     private EditTextKeyHandler mEditTextKeyHandler;
     private ItemClickHandler mItemClickHandler;
+    private EditItemHandler mEditItemHandler;
     //endregion
 
 
@@ -63,6 +60,7 @@ public class MainActivity extends AppCompatActivity {
         mSubmitHandler = new SubmitHandler(this);
         mEditTextKeyHandler = new EditTextKeyHandler(this, mSubmitHandler, mModeHandler);
         mItemClickHandler = new ItemClickHandler(this, mArrayList, mAdapter);
+        mEditItemHandler = new EditItemHandler(this);
 
         setUpListeners();
     }
@@ -101,7 +99,7 @@ public class MainActivity extends AppCompatActivity {
 
         mListView.setOnItemClickListener((parent, view, position, id) -> {
             if (mModeHandler.getIsEditMode()) {
-                editItem(position);
+                mEditItemHandler.editItem(position);
             } else {
                 mItemClickHandler.handleItemClick(position);
             }
@@ -112,27 +110,6 @@ public class MainActivity extends AppCompatActivity {
             return true;
         });
     }
-
-    /**
-     * Edits the selected dataset at the specified position of the list.
-     * Dataset is converted into a string and displayed in the EditText view, allowing the user to change/remove values.
-     * Once the dataset is displayed, it is removed from the original list and the adapter is notified of the change.
-     *
-     * @param position Position of the selected listItem which is to be edited.
-     */
-    private void editItem(int position) {
-        ArrayList<Double> item = mArrayList.get(position);
-        StringBuilder sb = new StringBuilder();
-        for (Double d : item) {
-            sb.append(d).append(" ");
-        }
-        mEditText.setText(sb.toString().trim());
-        mEditText.setVisibility(View.VISIBLE);
-        mEditText.requestFocus();
-        mArrayList.remove(position);
-        mAdapter.notifyDataSetChanged();
-    }
-
 
     /**
      * Removes the selected dataset from the list and sends a confirmation toast.
