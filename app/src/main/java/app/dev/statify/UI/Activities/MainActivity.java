@@ -33,6 +33,7 @@ public class MainActivity extends AppCompatActivity {
     private EditTextKeyHandler mEditTextKeyHandler;
     private ItemClickHandler mItemClickHandler;
     private EditItemHandler mEditItemHandler;
+    private RemoveItemFromListHandler mRemoveItemFromListHandler;
     //endregion
 
 
@@ -61,6 +62,7 @@ public class MainActivity extends AppCompatActivity {
         mEditTextKeyHandler = new EditTextKeyHandler(this, mSubmitHandler, mModeHandler);
         mItemClickHandler = new ItemClickHandler(this);
         mEditItemHandler = new EditItemHandler(this);
+        mRemoveItemFromListHandler = new RemoveItemFromListHandler(this);
 
         setUpListeners();
     }
@@ -106,24 +108,10 @@ public class MainActivity extends AppCompatActivity {
         });
 
         mListView.setOnItemLongClickListener((parent, view, position, id) -> {
-            removeItemFromList(position);
+            mRemoveItemFromListHandler.removeItemFromList(position);
             return true;
         });
     }
-
-    /**
-     * Removes the selected dataset from the list and sends a confirmation toast.
-     * Adapter is notified of the change.
-     *
-     * @param position Position of the selected listItem which is to be deleted.
-     */
-    private void removeItemFromList(int position) {
-        mArrayList.remove(position);
-        Toast.makeText(this, "Dataset removed", Toast.LENGTH_SHORT).show();
-        mAdapter.notifyDataSetChanged();
-        mSaveLoadManager.saveStatRows(mArrayList);
-    }
-
     //region Getter
 
     /**
@@ -151,6 +139,24 @@ public class MainActivity extends AppCompatActivity {
      */
     public ArrayAdapter<ArrayList<Double>> getAdapter() {
         return mAdapter;
+    }
+
+    /**
+     * Gets the current BtnNewData.
+     *
+     * @return Button BtnNewData.
+     */
+    public Button getBtnNewData() {
+        return mBtnNewData;
+    }
+
+    /**
+     * Gets the current BtnEditData.
+     *
+     * @return Button BtnEditData.
+     */
+    public Button getBtnEditData() {
+        return mBtnEditData;
     }
     //endregion
 }

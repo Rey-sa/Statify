@@ -18,15 +18,20 @@ import java.util.ArrayList;
 public class ModeHandler {
     private final MainActivity mActivity;
     private boolean mIsNewDataMode = false, mIsEditMode = false;
-    private final Button mBtnNewData, mBtnEditData;
-    private final EditText mEditText;
+    private  Button mBtnNewData, mBtnEditData;
+    private  EditText mEditText;
     private ArrayAdapter<ArrayList<Double>> mAdapter;
 
     public ModeHandler(MainActivity activity){
         this.mActivity = activity;
-        this.mBtnNewData = activity.findViewById(R.id.idBtnNewData);
-        this.mBtnEditData = activity.findViewById(R.id.idBtnEditData);
-        this.mEditText = activity.findViewById(R.id.idEditText);
+        initializeViews();
+    }
+
+    private void initializeViews(){
+
+        mBtnNewData = mActivity.getBtnNewData();
+        mBtnEditData = mActivity.getBtnEditData();
+        mEditText = mActivity.getEditText();
     }
 
     public void setAdapter(ArrayAdapter<ArrayList<Double>> adapter){
