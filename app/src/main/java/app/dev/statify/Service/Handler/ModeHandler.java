@@ -1,5 +1,6 @@
 package app.dev.statify.Service.Handler;
 
+//region Imports
 import android.graphics.Color;
 import android.view.View;
 import android.widget.ArrayAdapter;
@@ -8,9 +9,12 @@ import android.widget.EditText;
 import androidx.core.content.ContextCompat;
 import app.dev.statify.R;
 import app.dev.statify.UI.Activities.MainActivity;
-
 import java.util.ArrayList;
+//endregion
 
+/**
+ * Handles EditMode / Non EditMode &  New Data Mode for {@link MainActivity}
+ */
 public class ModeHandler {
     private final MainActivity mActivity;
     private boolean mIsNewDataMode = false, mIsEditMode = false;
@@ -83,6 +87,7 @@ public class ModeHandler {
         }
     }
 
+    //region Getter
     public boolean getIsNewDataMode() {
         return mIsNewDataMode;
     }
@@ -90,4 +95,5 @@ public class ModeHandler {
     public boolean getIsEditMode() {
         return mIsEditMode;
     }
+    //endregion
 }

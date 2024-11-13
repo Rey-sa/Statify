@@ -1,20 +1,21 @@
 package app.dev.statify.Service.Handler;
 
+//region Imports
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.EditText;
 import app.dev.statify.UI.Activities.MainActivity;
+//endregion
 
 /**
  * Handles key events for {@link EditText} input in {@link MainActivity}.
  * Listens for key events (enter) and processes the input.
- *
  * Interacts with {@link SubmitHandler} to handle submission and manages data modes.
  */
 public class EditTextKeyHandler{
 
-    private MainActivity mActivity;
-    private SubmitHandler mSubmitHandler;
+    private final MainActivity mActivity;
+    private final SubmitHandler mSubmitHandler;
     private ModeHandler mModeHandler;
 
     /**

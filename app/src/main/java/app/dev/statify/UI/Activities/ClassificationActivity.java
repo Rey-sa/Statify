@@ -20,7 +20,7 @@ public class ClassificationActivity extends AppCompatActivity {
     private ArrayList<Double> mSelectedData;
     private EditText mClassLimitInput;
     private ClassifyInputHandler mClassifyInputHandler;
-    private AnyChartView mBarDiagramm;
+    private AnyChartView mBarDiagram;
 
     /**
      * Initializes the views, sets up listener and loads any previously selected dataset, when activity is being created.
@@ -42,7 +42,7 @@ public class ClassificationActivity extends AppCompatActivity {
         }
 
         mClassLimitInput = findViewById(R.id.idClassLimitInput);
-        mBarDiagramm = findViewById(R.id.idClassificationBar);
+        mBarDiagram = findViewById(R.id.idClassificationBar);
 
         mClassifyInputHandler = new ClassifyInputHandler(this);
 
@@ -54,7 +54,7 @@ public class ClassificationActivity extends AppCompatActivity {
      * Handles back button click. Triggered when user clicks the "arrow button".
      * Finishes current activity and returns back to the previous screen.
      *
-     * @param v View that was clicke (arrow button).
+     * @param v View that was clicked (arrow button).
      */
     public void onBackClick(View v) {
         finish();
@@ -84,7 +84,7 @@ public class ClassificationActivity extends AppCompatActivity {
      * @return BarDiagramm
      */
     public AnyChartView getChartView() {
-        return mBarDiagramm;
+        return mBarDiagram;
     }
     //endregion
 }

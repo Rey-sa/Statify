@@ -1,10 +1,12 @@
 package app.dev.statify.Service.Handler;
 
+//region Imports
 import android.widget.EditText;
 import app.dev.statify.Persistence.SaveLoadHandler;
 import app.dev.statify.UI.Activities.MainActivity;
 import java.util.ArrayList;
 import java.util.Arrays;
+//endregion
 
 /**
  * Handles onKeyPressed events (Enter).
