@@ -3,7 +3,10 @@ package app.dev.statify.UI.Activities;
 //region Imports
 
 import android.os.Bundle;
-import android.widget.*;
+import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.ListView;
 import androidx.appcompat.app.AppCompatActivity;
 import app.dev.statify.Persistence.SaveLoadHandler;
 import app.dev.statify.R;
@@ -112,6 +115,7 @@ public class MainActivity extends AppCompatActivity {
             return true;
         });
     }
+
     //region Getter
 
     /**
