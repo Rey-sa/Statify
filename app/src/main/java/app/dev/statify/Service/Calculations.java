@@ -1,9 +1,11 @@
 package app.dev.statify.Service;
 
+//region Imports
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.TreeMap;
+//endregion
 
 /**
  * CLass for performing different Calculations with the given selectedData.
