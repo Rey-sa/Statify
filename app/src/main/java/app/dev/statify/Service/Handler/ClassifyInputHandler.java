@@ -46,7 +46,6 @@ public class ClassifyInputHandler {
     public boolean handleKey(View v, int keyCode, KeyEvent event) {
         if ((event.getAction() == KeyEvent.ACTION_DOWN) && (keyCode == KeyEvent.KEYCODE_ENTER)) {
 
-            // Find class Limits
             String classLimitsText = mActivity.getClassLimitInput().getText().toString().trim();
 
             if (classLimitsText.isEmpty()) {
@@ -67,10 +66,8 @@ public class ClassifyInputHandler {
                 }
             }
 
-            // Classify
             ArrayList<Integer> classificationResults = classifyData(mActivity.getSelectedData(), classLimits);
 
-            // Set EditText to non visible
             hideClassLimitInputAndShowChart(classificationResults, classLimits);
 
             return true;

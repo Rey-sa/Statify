@@ -2,7 +2,6 @@ package app.dev.statify.UI.Activities;
 
 //region Imports
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.*;
@@ -10,6 +9,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import app.dev.statify.Persistence.SaveLoadHandler;
 import app.dev.statify.R;
 import app.dev.statify.Service.Handler.EditTextKeyHandler;
+import app.dev.statify.Service.Handler.ItemClickHandler;
 import app.dev.statify.Service.Handler.ModeHandler;
 import app.dev.statify.Service.Handler.SubmitHandler;
 import app.dev.statify.UI.Adapter.Adapter;
@@ -35,6 +35,7 @@ public class MainActivity extends AppCompatActivity {
     private SubmitHandler mSubmitHandler;
     private ModeHandler mModeHandler;
     private EditTextKeyHandler mEditTextKeyHandler;
+    private ItemClickHandler mItemClickHandler;
     //endregion
 
 
@@ -61,24 +62,11 @@ public class MainActivity extends AppCompatActivity {
 
         mSubmitHandler = new SubmitHandler(this);
         mEditTextKeyHandler = new EditTextKeyHandler(this, mSubmitHandler, mModeHandler);
+        mItemClickHandler = new ItemClickHandler(this, mArrayList, mAdapter);
 
         setUpListeners();
     }
 
-    /**
-     * Handles the click event of an item wihtin the list. Either opens the clicked item in "edit" mode or navigates to "ResultActivity".
-     *
-     * @param position Position of the item that was clicked (selected Item).
-     */
-    public void handleItemClick(int position) {
-
-        ArrayList<Double> selectedData = mArrayList.get(position);
-
-        Intent intent = new Intent(MainActivity.this, ResultActivity.class);
-        intent.putExtra("selected_data", selectedData);
-        startActivity(intent);
-        mAdapter.notifyDataSetChanged();
-    }
 
     /**
      * Initializes the views by finding the right layouts for them.
@@ -89,6 +77,15 @@ public class MainActivity extends AppCompatActivity {
         mListView = findViewById(R.id.idListView);
         mBtnNewData = findViewById(R.id.idBtnNewData);
         mBtnEditData = findViewById(R.id.idBtnEditData);
+    }
+
+    /**
+     * Sets up the adapter for the ListView by linking the data to the UI.
+     */
+    private void setUpAdapters() {
+        mAdapter = new Adapter(this, mArrayList, mModeHandler);
+        mModeHandler.setAdapter(mAdapter);
+        mListView.setAdapter(mAdapter);
     }
 
     /**
@@ -106,7 +103,7 @@ public class MainActivity extends AppCompatActivity {
             if (mModeHandler.getIsEditMode()) {
                 editItem(position);
             } else {
-                handleItemClick(position);
+                mItemClickHandler.handleItemClick(position);
             }
         });
 
@@ -114,15 +111,6 @@ public class MainActivity extends AppCompatActivity {
             removeItemFromList(position);
             return true;
         });
-    }
-
-    /**
-     * Sets up the adapter for the ListView by linking the data to the UI.
-     */
-    private void setUpAdapters() {
-        mAdapter = new Adapter(this, mArrayList, mModeHandler);
-        mModeHandler.setAdapter(mAdapter);
-        mListView.setAdapter(mAdapter);
     }
 
     /**
