@@ -18,6 +18,12 @@ import app.dev.statify.UI.Adapter.Adapter;
 import java.util.ArrayList;
 //endregion
 
+
+/**
+ * Primary activity for managing and displaying a list of datasets (statistical rows).
+ * Allows the user to add, edit and remove datasets from the list.
+ * It supports switching between "edit" and "new data" Mode.
+ */
 public class MainActivity extends AppCompatActivity {
 
     //region Declaration instance variables
@@ -34,6 +40,10 @@ public class MainActivity extends AppCompatActivity {
     //endregion
 
 
+    /**
+     * Inizializes the views, sets up listeners and loads any previously saved datasets, when activity is being created.
+     * @param savedInstanceState Bundle containing the activities previously saved state.
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         mSaveLoadManager = new SaveLoadHandler(this);
@@ -52,6 +62,10 @@ public class MainActivity extends AppCompatActivity {
         setUpAdapters();
     }
 
+    /**
+     * Handles the click event of an item wihtin the list. Either opens the clicked item in "edit" mode or navigates to "ResultActivity".
+     * @param position Position of the item that was clicked (selected Item).
+     */
     public void handleItemClick(int position) {
 
         ArrayList<Double> selectedData = mArrayList.get(position);
@@ -63,7 +77,10 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-
+    /**
+     * Initializes the views by finding the right layouts for them.
+     * Views are EditText, ListView, Buttons.
+     */
     private void initializeViews() {
         mEditText = findViewById(R.id.idEditText);
         mListView = findViewById(R.id.idListView);
@@ -71,6 +88,10 @@ public class MainActivity extends AppCompatActivity {
         mBtnEditData = findViewById(R.id.idBtnEditData);
     }
 
+    /**
+     * Sets up the different listeners for the EditText, buttons and ListView.
+     * Calls Handlers to handle user interactions like button clicks etc.
+     */
     private void setUpListeners() {
 
         mEditText.setOnKeyListener((v, keyCode, event) -> mEditTextKeyHandler.handleKey(v, keyCode, event));
@@ -92,12 +113,19 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
+    /**
+     * Sets up the adapter for the ListView by linking the data to the UI.
+     */
     private void setUpAdapters() {
         mAdapter = new Adapter(this, mArrayList, mIsEditMode);
         mListView.setAdapter(mAdapter);
     }
 
-
+    /**
+     * Changes the visibility of the EditText. It will be shown and focused, when visibility is true.
+     *
+     * @param visible Boolean indicating whether to show or to hide the EditText.
+     */
     private void changeTextVisibility(boolean visible) {
         mEditText.setVisibility(visible ? View.VISIBLE : View.GONE);
         if (visible) {
