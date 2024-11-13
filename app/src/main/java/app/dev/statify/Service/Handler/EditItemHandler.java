@@ -1,15 +1,27 @@
 package app.dev.statify.Service.Handler;
 
+//region Imports
+
 import android.view.View;
 import app.dev.statify.UI.Activities.MainActivity;
 
 import java.util.ArrayList;
+//endregion
 
+/**
+ * Handles edit function in List View in MainActivity.
+ */
 public class EditItemHandler {
 
-    MainActivity mActivity;
+    private final MainActivity mActivity;
 
-    public EditItemHandler(MainActivity activity){
+    /**
+     * Constructs {@link EditItemHandler}. Initializes necessary params for handling
+     * editing behavior within ListView in MainActivity.
+     *
+     * @param activity The MainActivity instance where the handler ist used.
+     */
+    public EditItemHandler(MainActivity activity) {
         this.mActivity = activity;
     }
 
