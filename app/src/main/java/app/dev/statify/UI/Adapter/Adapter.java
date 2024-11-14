@@ -27,7 +27,7 @@ public class Adapter extends ArrayAdapter<ArrayList<Double>> {
      *
      * @param context    Activity in which the {@code Adapter} ist being used.
      * @param arrList    List of data to be displayed.
-     * @param modeHandler xxxx
+     * @param modeHandler {@link ModeHandler} for handling EditMode/non EditMode/New DataMode.
      */
     public Adapter(Context context, ArrayList<ArrayList<Double>> arrList, ModeHandler modeHandler) {
         super(context, android.R.layout.simple_list_item_1, arrList);
