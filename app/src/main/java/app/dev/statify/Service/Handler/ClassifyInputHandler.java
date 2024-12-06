@@ -48,9 +48,7 @@ public class ClassifyInputHandler {
 
             String classLimitsText = mActivity.getClassLimitInput().getText().toString().trim();
 
-            if (classLimitsText.isEmpty()) {
-                throw new IllegalArgumentException("Class limits missing");
-            }
+            if (!classLimitsText.isEmpty()) {
 
             String[] inputClassLimits = classLimitsText.split(" ");
             ArrayList<Double> classLimits = new ArrayList<>();
@@ -71,6 +69,7 @@ public class ClassifyInputHandler {
             hideClassLimitInputAndShowChart(classificationResults, classLimits);
 
             return true;
+            }
         }
         return false;
     }
