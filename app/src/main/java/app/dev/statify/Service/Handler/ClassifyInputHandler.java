@@ -82,12 +82,22 @@ public class ClassifyInputHandler {
      * @return ArrayList of Integer containing counted elements by class.
      */
     private ArrayList<Integer> classifyData(ArrayList<Double> selectedData, ArrayList<Double> classLimits) {
+        ArrayList<Double> infiniteLimits = new ArrayList<>();
+        infiniteLimits.add(-Double.MAX_VALUE);
+
+        for(int i = 0; i < classLimits.size(); i++){
+            double lowLimit = (i == 0) ? Math.floor(classLimits.get(i)) - 1 : classLimits.get(i);
+            infiniteLimits.add(lowLimit);
+        }
+
+        infiniteLimits.add(Double.MAX_VALUE);
+
         ArrayList<Integer> classifications = new ArrayList<>();
 
         for (Double value : selectedData) {
             int classIndex = -1;
-            for (int i = 0; i < classLimits.size() - 1; i++) {
-                if (value >= classLimits.get(i) && value < classLimits.get(i + 1)) {
+            for (int i = 0; i < infiniteLimits.size() - 1; i++) {
+                if (value >= infiniteLimits.get(i) && value < infiniteLimits.get(i + 1)) {
                     classIndex = i;
                     break;
                 }
@@ -108,10 +118,26 @@ public class ClassifyInputHandler {
 
         mActivity.getClassLimitInput().setVisibility(EditText.GONE);
 
+        ArrayList<Double> infiniteLimits = new ArrayList<>();
+        infiniteLimits.add(-Double.MAX_VALUE);
+        for(int i = 0; i < classLimits.size(); i++){
+            double lowerLimit = (i == 0) ? Math.floor(classLimits.get(i) - 1): classLimits.get(i);
+            infiniteLimits.add(lowerLimit);
+        }
+        infiniteLimits.add(Double.MAX_VALUE);
+
         ArrayList<DataEntry> dataEntries = new ArrayList<>();
 
-        for (int i = 0; i < classLimits.size() - 1; i++) {
-            String classRange = classLimits.get(i) + " - " + classLimits.get(i + 1);
+        for (int i = 0; i < infiniteLimits.size() - 1; i++) {
+            String classRange;
+
+            if(i == 0){
+            classRange = "[-∞, " + Math.floor(infiniteLimits.get(i+1)) + "]";
+            } else if (i == infiniteLimits.size() - 2) {
+                classRange = "[" + Math.ceil(infiniteLimits.get(i)) + ", ∞]";
+            } else {
+                classRange = "[" + Math.ceil(infiniteLimits.get(i)) + ", " + Math.floor(infiniteLimits.get(i +1)) + "]";
+            }
 
             int count = 0;
             for (Integer classIndex : classificationResults) {
