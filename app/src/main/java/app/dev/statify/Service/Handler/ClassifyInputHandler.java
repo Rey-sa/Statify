@@ -50,25 +50,25 @@ public class ClassifyInputHandler {
 
             if (!classLimitsText.isEmpty()) {
 
-            String[] inputClassLimits = classLimitsText.split(" ");
-            ArrayList<Double> classLimits = new ArrayList<>();
+                String[] inputClassLimits = classLimitsText.split(" ");
+                ArrayList<Double> classLimits = new ArrayList<>();
 
-            // Parse class limits
-            for (String limit : inputClassLimits) {
-                limit = limit.replace(",", ".");
-                try {
-                    classLimits.add(Double.parseDouble(limit.trim()));
-                } catch (NumberFormatException e) {
-                    e.printStackTrace();
-                    return false;
+                // Parse class limits
+                for (String limit : inputClassLimits) {
+                    limit = limit.replace(",", ".");
+                    try {
+                        classLimits.add(Double.parseDouble(limit.trim()));
+                    } catch (NumberFormatException e) {
+                        e.printStackTrace();
+                        return false;
+                    }
                 }
-            }
 
-            ArrayList<Integer> classificationResults = classifyData(mActivity.getSelectedData(), classLimits);
+                ArrayList<Integer> classificationResults = classifyData(mActivity.getSelectedData(), classLimits);
 
-            hideClassLimitInputAndShowChart(classificationResults, classLimits);
+                hideClassLimitInputAndShowChart(classificationResults, classLimits);
 
-            return true;
+                return true;
             }
         }
         return false;
@@ -85,9 +85,8 @@ public class ClassifyInputHandler {
         ArrayList<Double> infiniteLimits = new ArrayList<>();
         infiniteLimits.add(-Double.MAX_VALUE);
 
-        for(int i = 0; i < classLimits.size(); i++){
-            double lowLimit = (i == 0) ? Math.floor(classLimits.get(i)) - 1 : classLimits.get(i);
-            infiniteLimits.add(lowLimit);
+        for (int i = 0; i < classLimits.size(); i++) {
+            infiniteLimits.add(classLimits.get(i));
         }
 
         infiniteLimits.add(Double.MAX_VALUE);
@@ -108,10 +107,10 @@ public class ClassifyInputHandler {
     }
 
     /**
-     * Hides {@link EditText} in {@link ClassificationActivity} and displays {@link AnyChartView} with results.
+     * Updates UI by hiding {@link EditText} in {@link ClassificationActivity} and displaying {@link AnyChartView} with results.
      *
      * @param classificationResults ArrayList of Integer containing classification results. Each entry corresponds to a class index.
-     * @param classLimits           ArrayList of Double representing class limits.
+     * @param classLimits           ArrayList of Double representing user defined class limits. Limits are extended to infinity (positive and negative)
      */
 
     private void hideClassLimitInputAndShowChart(ArrayList<Integer> classificationResults, ArrayList<Double> classLimits) {
@@ -120,23 +119,19 @@ public class ClassifyInputHandler {
 
         ArrayList<Double> infiniteLimits = new ArrayList<>();
         infiniteLimits.add(-Double.MAX_VALUE);
-        for(int i = 0; i < classLimits.size(); i++){
-            double lowerLimit = (i == 0) ? Math.floor(classLimits.get(i) - 1): classLimits.get(i);
-            infiniteLimits.add(lowerLimit);
-        }
+        infiniteLimits.addAll(classLimits);
         infiniteLimits.add(Double.MAX_VALUE);
 
         ArrayList<DataEntry> dataEntries = new ArrayList<>();
-
         for (int i = 0; i < infiniteLimits.size() - 1; i++) {
             String classRange;
 
-            if(i == 0){
-            classRange = "[-∞, " + Math.floor(infiniteLimits.get(i+1)) + "]";
+            if (i == 0) {
+                classRange = "[-∞, " + infiniteLimits.get(i + 1) + ")";
             } else if (i == infiniteLimits.size() - 2) {
-                classRange = "[" + Math.ceil(infiniteLimits.get(i)) + ", ∞]";
+                classRange = "[" + infiniteLimits.get(i) + ", ∞)";
             } else {
-                classRange = "[" + Math.ceil(infiniteLimits.get(i)) + ", " + Math.floor(infiniteLimits.get(i +1)) + "]";
+                classRange = "[" + infiniteLimits.get(i) + ", " + infiniteLimits.get(i + 1) + ")";
             }
 
             int count = 0;
@@ -146,15 +141,14 @@ public class ClassifyInputHandler {
                 }
             }
             dataEntries.add(new ValueDataEntry(classRange, count));
-
-            Cartesian cartesian = AnyChart.column();
-            Column column = cartesian.column(dataEntries);
-
-            column.tooltip().format("Count: {%Value}");
-
-            AnyChartView chartView = mActivity.getChartView();
-            chartView.setChart(cartesian);
-            chartView.setVisibility(AnyChartView.VISIBLE);
         }
+
+        Cartesian cartesian = AnyChart.column();
+        Column column = cartesian.column(dataEntries);
+        column.tooltip().format("Count: {%Value}");
+
+        AnyChartView chartView = mActivity.getChartView();
+        chartView.setChart(cartesian);
+        chartView.setVisibility(AnyChartView.VISIBLE);
     }
 }
