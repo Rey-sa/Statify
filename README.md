@@ -8,10 +8,9 @@
 - [Features](#features)
 - [Tech Stack](#tech-stack)
 - [Quick Start](#quick-start)
-- [Screenshots](#screenshots)
 - [Project Structure](#project-structure)
 - [Development Setup](#development-setup)
-- [Contributing](#contributing)
+
 
 ## 📝 Description
 
